@@ -1,19 +1,14 @@
 "use client";
 import { useRef, useState, useEffect } from "react";
+import { CircleSpinnerOverlay } from "react-spinner-overlay";
 import Link from "next/link";
-import { signOut } from "firebase/auth";
 import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
-import "./firebase";
-import { auth } from "./firebase";
-
-interface Props {
-  subtitle: string;
-}
+import "../../components/firebase";
 
 const db = firebase.firestore();
 
-export default function Top(props: Props) {
+export default function Home() {
   const h3 = {
     color: "#99d",
     fontSize: "24pt",
@@ -36,7 +31,7 @@ export default function Top(props: Props) {
   const label = {
     color: "white",
     display: "block",
-    width: "160px",
+    width: "320px",
   } as const;
 
   const button = {
@@ -66,18 +61,34 @@ export default function Top(props: Props) {
 
   const title = "Top page.";
   const initialData: any[] = [];
+  const [hasDocument, setHasDocument] = useState(false);
   const [tableData, setTableData] = useState(initialData);
   const [selectData, setSelectData] = useState(initialData);
-  const [message, setMessage] = useState("wait...");
+  const [isLoading, setIsLoading] = useState(true);
+  const [message, setMessage] = useState("Now Loading...");
   const [find, setFind] = useState("");
   const ignore = useRef(false);
 
+  const onUnload = (event: BeforeUnloadEvent) => {
+    event.preventDefault();
+    event.returnValue = "";
+  }
+
+  useEffect(() => {
+    window.addEventListener('beforeunload', onUnload);
+    return () => {
+      window.removeEventListener('beforeunload', onUnload);
+    }
+  });
+
   useEffect(() => {
     if (!ignore.current) {
+      if (typeof document !== "undefined") {
+        setHasDocument(true);
+      }
       const _array: string[] = [];
       const _tableData: any[] = [];
       const _selectData: any[] = [<option key="">選択してください</option>];
-
       db.collection("mydata").get().then((snapshot) => {
         snapshot.forEach((document) => {
           const doc = document.data();
@@ -85,9 +96,9 @@ export default function Top(props: Props) {
           _tableData.push(
             <tr key={document.id}>
               <td>
-                <a href={"/firebase/delete?id=" + document.id}>
-                  {document.id}
-                </a>
+                <Link href={"/firebase/delete?id=" + document.id} legacyBehavior>
+                  <a>{document.id}</a>
+                </Link>
               </td>
               <td>{doc.name}</td>
               <td>{doc.mail}</td>
@@ -105,7 +116,11 @@ export default function Top(props: Props) {
         }
         setTableData(_tableData);
         setSelectData(_selectData);
-        setMessage("Firebase data.");
+        setIsLoading(false);
+        const _displayName = localStorage.getItem("displayName");
+        if (_displayName) {
+          setMessage(_displayName);
+        }
       });
     }
     return () => {
@@ -127,9 +142,9 @@ export default function Top(props: Props) {
           _tableData.push(
             <tr key={document.id}>
               <td>
-                <a href={"/firebase/delete?id=" + document.id}>
-                  {document.id}
-                </a>
+                <Link href={"/firebase/delete?id=" + document.id} legacyBehavior>
+                  <a>{document.id}</a>
+                </Link>
               </td>
               <td>{doc.name}</td>
               <td>{doc.mail}</td>
@@ -138,20 +153,19 @@ export default function Top(props: Props) {
           );
         });
         setTableData(_tableData);
-        setMessage("find: " + find);
+        setMessage("Name: " + find);
     });
-  });
-
-  const doLogout = (async () => {
-    await signOut(auth);
   });
 
   return (
     <div>
+      {hasDocument && isLoading &&
+        <CircleSpinnerOverlay overlayColor="rgba(0, 0, 0, 0.2)" />
+      }
       <div className="container">
         <h3 className="my-3 text-primary text-center" style={h3}>{title}</h3>
         <div className="bg-dark card p-3 text-center">
-          <h5 className="mb-4" style={p}>{props.subtitle}</h5>
+          <h5 className="mb-4" style={p}>{message}</h5>
           <div className="text-left">
             <div className="form-group d-flex align-items-center justify-content-between" style={div}>
               <label style={label}>Name</label>
@@ -178,10 +192,7 @@ export default function Top(props: Props) {
               </tbody>
             </table>
           </div>
-          <div className="d-flex justify-content-between">
-            <Link href="/" legacyBehavior>
-              <a onClick={() => doLogout()}>&lt;&lt; Back to Login page</a>
-            </Link>
+          <div className="d-flex justify-content-end">
             <Link href="/firebase/create" legacyBehavior>
               <a>Go to Create page &gt;&gt;</a>
             </Link>

@@ -46,6 +46,18 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
   const [message, setMessage] = useState("Now Loading...");
 
+  const onUnload = (event: BeforeUnloadEvent) => {
+    event.preventDefault();
+    event.returnValue = "";
+  }
+
+  useEffect(() => {
+    window.addEventListener('beforeunload', onUnload);
+    return () => {
+      window.removeEventListener('beforeunload', onUnload);
+    }
+  });
+
   useEffect(() => {
     if (documentID !== null) {
       if (typeof document !== "undefined") {
@@ -65,7 +77,7 @@ export default function Home() {
   const doAction = (async (e: React.MouseEvent<HTMLButtonElement>) => {
     if (documentID !== null) {
       await db.collection("mydata").doc(documentID).delete().then(ref => {
-        router.push("/");
+        router.push("/firebase/top");
       });
     }
   });

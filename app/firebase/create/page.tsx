@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -44,7 +44,7 @@ export default function Home() {
   const label = {
     color: "white",
     display: "block",
-    width: "160px",
+    width: "320px",
   } as const;
 
   const button = {
@@ -61,6 +61,18 @@ export default function Home() {
     formState: {errors}
   } = useForm({defaultValues: {name: "", mail: "", age: 0}});
 
+  const onUnload = (event: BeforeUnloadEvent) => {
+    event.preventDefault();
+    event.returnValue = "";
+  }
+
+  useEffect(() => {
+    window.addEventListener('beforeunload', onUnload);
+    return () => {
+      window.removeEventListener('beforeunload', onUnload);
+    }
+  });
+
   const doSubmit = ((_ob: Profile) => {
     try {
       const ob = {
@@ -69,7 +81,7 @@ export default function Home() {
         age: _ob.age,
       };
       db.collection("mydata").add(ob).then(ref => {
-        router.push("/");
+        router.push("/firebase/top");
       });
     } catch (error) {
       console.log(error);
@@ -87,11 +99,11 @@ export default function Home() {
             <form onSubmit={handleSubmit(doSubmit)}>
               <div className="form-group d-flex align-items-center justify-content-between" style={div}>
                 <label style={label}>Name</label>
-                <input className="form-control" type="text" placeholder="Input your Name" required {...register("name", { required: true })} />
+                <input className="form-control" type="text" placeholder="Input Name" required {...register("name", { required: true })} />
               </div>
               <div className="form-group d-flex align-items-center justify-content-between" style={div}>
                 <label style={label}>Mail</label>
-                <input className="form-control" type="email" placeholder="Input your Mail" required {...register("mail", { required: true })} />
+                <input className="form-control" type="email" placeholder="Input Mail" required {...register("mail", { required: true })} />
               </div>
               <div className="form-group d-flex align-items-center justify-content-between" style={div}>
                 <label style={label}>Age</label>
