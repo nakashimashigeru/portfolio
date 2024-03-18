@@ -56,7 +56,7 @@ export default function Home() {
   } as const;
 
   const th_ID = {
-    width: "30%",
+    width: "20%",
   } as const;
 
   const title = "Top page.";
@@ -66,7 +66,7 @@ export default function Home() {
   const [selectData, setSelectData] = useState(initialData);
   const [isLoading, setIsLoading] = useState(true);
   const [message, setMessage] = useState("Now Loading...");
-  const [find, setFind] = useState("");
+  const [search, setSearch] = useState("");
   const ignore = useRef(false);
 
   const onUnload = (event: BeforeUnloadEvent) => {
@@ -128,14 +128,14 @@ export default function Home() {
     };
   }, []);
 
-  const doChangeFind = ((e: React.ChangeEvent<HTMLSelectElement>) => {
-    setFind(e.target.value);
+  const doChangeSearch = ((e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSearch(e.target.value);
   });
 
   const doAction = ((e: React.MouseEvent<HTMLButtonElement>) => {
     const _tableData: any[] = [];
 
-    db.collection("mydata").where("name", "==", find)
+    db.collection("mydata").where("name", "==", search)
       .get().then((snapshot) => {
         snapshot.forEach((document) => {
           const doc = document.data();
@@ -153,7 +153,11 @@ export default function Home() {
           );
         });
         setTableData(_tableData);
-        setMessage("Name: " + find);
+        if (_tableData.length === 0) {
+          setMessage("検索結果: ");
+        } else {
+          setMessage("検索結果: " + search);
+        }
     });
   });
 
@@ -168,12 +172,11 @@ export default function Home() {
           <h5 className="mb-4" style={p}>{message}</h5>
           <div className="text-left">
             <div className="form-group d-flex align-items-center justify-content-between" style={div}>
-              <label style={label}>Name</label>
-              <select className="form-select bg-light" onChange={doChangeFind}>
+              <select className="form-select bg-light" onChange={doChangeSearch}>
                 {selectData}
               </select>
               <button className="btn btn-primary" onClick={doAction} style={button}>
-                Find
+                検索
               </button>
             </div>
           </div>

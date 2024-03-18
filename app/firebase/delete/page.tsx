@@ -25,6 +25,10 @@ export default function Home() {
     textAlign: "center",
   } as const;
 
+  const div = {
+    marginTop: "16px",
+  } as const;
+
   const p = {
     color: "#669",
     fontSize: "18pt",
@@ -67,7 +71,7 @@ export default function Home() {
         const profile = ob.data() as Profile;
         setData(profile);
         setIsLoading(false);
-        setMessage("Delete documentID = " + documentID);
+        setMessage("削除");
       });
     } else {
       setMessage(message + ".");
@@ -100,7 +104,7 @@ export default function Home() {
           <button className="btn btn-primary" onClick={doAction} style={button} disabled={isLoading}>
             Delete
           </button>
-          <div className="d-flex justify-content-between">
+          <div className="d-flex justify-content-between" style={div}>
             <Link href="/" legacyBehavior>
               <a>&lt;&lt; Back to Top page</a>
             </Link>

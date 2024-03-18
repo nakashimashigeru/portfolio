@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -25,7 +25,11 @@ export default function Home() {
     textAlign: "center",
   } as const;
 
-  const div = {
+    const div_mt16 = {
+      marginTop: "16px",
+    } as const;
+
+  const div_mb16 = {
     marginBottom: "16px",
   } as const;
 
@@ -36,15 +40,10 @@ export default function Home() {
     textAlign: "left",
   } as const;
 
-  const span = {
-    display: "inline-block",
-    width: "180px",
-  } as const;
-
   const label = {
     color: "white",
     display: "block",
-    width: "320px",
+    width: "20%",
   } as const;
 
   const button = {
@@ -53,7 +52,7 @@ export default function Home() {
 
   const router = useRouter();
   const title = "Create page.";
-  const [message, setMessage] = useState("Create data");
+  const message = "新規登録";
 
   const {
     register,
@@ -97,16 +96,16 @@ export default function Home() {
           <h5 className="mb-4" style={p}>{message}</h5>
           <div className="text-left">
             <form onSubmit={handleSubmit(doSubmit)}>
-              <div className="form-group d-flex align-items-center justify-content-between" style={div}>
-                <label style={label}>Name</label>
+              <div className="form-group d-flex align-items-center justify-content-between" style={div_mb16}>
+                <label style={label}>名前</label>
                 <input className="form-control" type="text" placeholder="Input Name" required {...register("name", { required: true })} />
               </div>
-              <div className="form-group d-flex align-items-center justify-content-between" style={div}>
-                <label style={label}>Mail</label>
+              <div className="form-group d-flex align-items-center justify-content-between" style={div_mb16}>
+                <label style={label}>メール</label>
                 <input className="form-control" type="email" placeholder="Input Mail" required {...register("mail", { required: true })} />
               </div>
-              <div className="form-group d-flex align-items-center justify-content-between" style={div}>
-                <label style={label}>Age</label>
+              <div className="form-group d-flex align-items-center justify-content-between" style={div_mb16}>
+                <label style={label}>年齢</label>
                 <input className="form-control" type="number" required {...register("age", { required: true })} />
               </div>
               <button className="btn btn-primary" style={button}>
@@ -114,7 +113,7 @@ export default function Home() {
               </button>
             </form>
           </div>
-          <div className="d-flex justify-content-between">
+          <div className="d-flex justify-content-between" style={div_mt16}>
             <Link href="/" legacyBehavior>
               <a>&lt;&lt; Back to Top page</a>
             </Link>

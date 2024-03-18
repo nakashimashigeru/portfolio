@@ -1,9 +1,9 @@
 "use client";
 import { useRef, useState, useEffect } from "react";
 import { CookiesProvider } from "react-cookie";
+import { CircleSpinnerOverlay } from "react-spinner-overlay";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
-import { CircleSpinnerOverlay } from "react-spinner-overlay";
 import { useRouter } from "next/navigation";
 import { signInWithRedirect, User } from 'firebase/auth';
 import "firebase/compat/auth";
