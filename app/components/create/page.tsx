@@ -5,8 +5,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import "firebase/compat/firestore";
 import firebase from "firebase/compat/app";
-import "../../components/firebase";
-import Header from "../../components/header";
+import "../firebase";
+import Header from "../header";
 
 interface Profile {
   name: string;
@@ -25,19 +25,18 @@ export default function Home() {
     textAlign: "center",
   } as const;
 
-    const div_mt16 = {
-      marginTop: "16px",
-    } as const;
+  const h5 = {
+    color: "#669",
+    fontSize: "18pt",
+    textAlign: "left",
+  } as const;
+
+  const div_mt16 = {
+    marginTop: "16px",
+  } as const;
 
   const div_mb16 = {
     marginBottom: "16px",
-  } as const;
-
-  const p = {
-    color: "#669",
-    fontSize: "18pt",
-    margin: "0px 5px",
-    textAlign: "left",
   } as const;
 
   const label = {
@@ -79,8 +78,8 @@ export default function Home() {
         mail: _ob.mail,
         age: _ob.age,
       };
-      db.collection("mydata").add(ob).then(ref => {
-        router.push("/firebase/top");
+      db.collection("data").add(ob).then(ref => {
+        router.push("/components/top");
       });
     } catch (error) {
       console.log(error);
@@ -93,7 +92,7 @@ export default function Home() {
       <div className="container">
         <h3 className="my-3 text-primary text-center" style={subtitle}>{title}</h3>
         <div className="bg-dark card p-3 text-center">
-          <h5 className="mb-4" style={p}>{message}</h5>
+          <h5 className="mb-4" style={h5}>{message}</h5>
           <div className="text-left">
             <form onSubmit={handleSubmit(doSubmit)}>
               <div className="form-group d-flex align-items-center justify-content-between" style={div_mb16}>
@@ -114,7 +113,7 @@ export default function Home() {
             </form>
           </div>
           <div className="d-flex justify-content-between" style={div_mt16}>
-            <Link href="/" legacyBehavior>
+            <Link href="/components/top" legacyBehavior>
               <a>&lt;&lt; Back to Top page</a>
             </Link>
           </div>

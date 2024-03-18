@@ -4,8 +4,8 @@ interface Props {
 
 export default function Header(props: Props) {
   const h1 = {
-    fontSize: "24pt",
-    padding: "8px 16px",
+    fontSize: "18pt",
+    padding: "8px",
     textAlign: "left"
   } as const;
 

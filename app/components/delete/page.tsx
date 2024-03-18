@@ -5,8 +5,8 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
-import "../../components/firebase";
-import Header from "../../components/header";
+import "../firebase";
+import Header from "../header";
 
 interface Profile {
   name: string;
@@ -25,15 +25,14 @@ export default function Home() {
     textAlign: "center",
   } as const;
 
-  const div = {
-    marginTop: "16px",
-  } as const;
-
-  const p = {
+  const h5 = {
     color: "#669",
     fontSize: "18pt",
-    margin: "0px 5px",
     textAlign: "left",
+  } as const;
+
+  const div_mt16 = {
+    marginTop: "16px",
   } as const;
 
   const button = {
@@ -67,7 +66,7 @@ export default function Home() {
       if (typeof document !== "undefined") {
         setHasDocument(true);
       }
-      db.collection("mydata").doc(documentID).get().then(ob => {
+      db.collection("data").doc(documentID).get().then(ob => {
         const profile = ob.data() as Profile;
         setData(profile);
         setIsLoading(false);
@@ -80,8 +79,8 @@ export default function Home() {
 
   const doAction = (async (e: React.MouseEvent<HTMLButtonElement>) => {
     if (documentID !== null) {
-      await db.collection("mydata").doc(documentID).delete().then(ref => {
-        router.push("/firebase/top");
+      await db.collection("data").doc(documentID).delete().then(ref => {
+        router.push("/components/top");
       });
     }
   });
@@ -95,7 +94,7 @@ export default function Home() {
       <div className="container">
         <h3 className="my-3 text-primary text-center" style={subtitle}>{title}</h3>
         <div className="bg-dark card p-3 text-center">
-          <h5 className="mb-4" style={p}>{message}</h5>
+          <h5 className="mb-4" style={h5}>{message}</h5>
           <pre className="card h5 m-3 p-3 text-left">
             Name: {data.name ? data.name : "..."}<br/>
             Mail: {data.mail ? data.mail : "..."}<br/>
@@ -104,8 +103,8 @@ export default function Home() {
           <button className="btn btn-primary" onClick={doAction} style={button} disabled={isLoading}>
             Delete
           </button>
-          <div className="d-flex justify-content-between" style={div}>
-            <Link href="/" legacyBehavior>
+          <div className="d-flex justify-content-between" style={div_mt16}>
+            <Link href="/components/top" legacyBehavior>
               <a>&lt;&lt; Back to Top page</a>
             </Link>
           </div>

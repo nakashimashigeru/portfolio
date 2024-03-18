@@ -21,10 +21,9 @@ export default function Home() {
     textAlign: "center",
   } as const;
 
-  const p = {
+  const h5 = {
     color: "#669",
     fontSize: "18pt",
-    margin: "0px 8px 16px 0px",
     textAlign: "center",
   } as const;
 
@@ -37,25 +36,28 @@ export default function Home() {
   const router = useRouter();
   const ignore = useRef(false);
   const [hasDocument, setHasDocument] = useState(false);
-  const [currentUser, setCurrentUser] = useState<User | null | undefined>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isLogin, setIsLogin] = useState(false);
   const [title, setTitle] = useState("");
   const [message, setMessage] = useState("Now Loading...");
 
   useEffect(() => {
     if (!ignore.current) {
+      const _isLogin = localStorage.getItem("doLogin");
+      if (_isLogin) {
+        setIsLogin(Boolean(_isLogin));
+      }
       if (typeof document !== "undefined") {
         setHasDocument(true);
       }
       const unsubscribed = auth.onAuthStateChanged((currentUser) => {
         try {
-          setCurrentUser(currentUser);
           setIsLoading(false);
           setTitle("Login page.");
           setMessage("Welcome to next.js!");
           if (currentUser) {
             localStorage.setItem("displayName", "Login User: " + currentUser.displayName);
-            router.push("/firebase/top");
+            router.push("/components/top");
           }
         } catch (error) {
           console.log(error);
@@ -68,6 +70,7 @@ export default function Home() {
   }, []);
 
   const doLogin = (async (e: React.MouseEvent<HTMLButtonElement>) => {
+    localStorage.setItem("doLogin", "true");
     await signInWithRedirect(auth, provider).catch(error => {
       console.error(error);
     });
@@ -83,7 +86,7 @@ export default function Home() {
         <div className="container">
           <h3 className="my-3 text-primary text-center" style={h3}>{title}</h3>
           <div className="bg-dark card p-3 text-center">
-            <p className="h5" style={p}>{message}</p>
+            <h5 className="mb-4" style={h5}>{message}</h5>
             {isLoading ?
               <div>
                 <LocalImage url="Loading.jpg" alt="小林 由依" width={300} height={300} />
@@ -91,7 +94,7 @@ export default function Home() {
               :
               <div>
                 <LocalImage url="Login.jpg" alt="藤吉 夏鈴" width={300} height={300} />
-                <button className="btn btn-danger" onClick={doLogin} style={button}>
+                <button className="btn btn-danger" onClick={doLogin} style={button} disabled={isLogin}>
                   <FontAwesomeIcon style={iconStyle} icon={faGoogle} />
                   Google アカウントでログイン
                 </button>

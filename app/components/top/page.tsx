@@ -4,7 +4,8 @@ import { CircleSpinnerOverlay } from "react-spinner-overlay";
 import Link from "next/link";
 import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
-import "../../components/firebase";
+import "../firebase";
+import Header from "../header";
 
 const db = firebase.firestore();
 
@@ -17,21 +18,14 @@ export default function Home() {
     textAlign: "center",
   } as const;
 
-  const div = {
-    marginBottom: "16px",
-  } as const;
-
-  const p = {
+  const h5 = {
     color: "#669",
     fontSize: "18pt",
-    margin: "0px 5px",
     textAlign: "left",
   } as const;
 
-  const label = {
-    color: "white",
-    display: "block",
-    width: "320px",
+  const div_mb16 = {
+    marginBottom: "16px",
   } as const;
 
   const button = {
@@ -89,14 +83,14 @@ export default function Home() {
       const _array: string[] = [];
       const _tableData: any[] = [];
       const _selectData: any[] = [<option key="">選択してください</option>];
-      db.collection("mydata").get().then((snapshot) => {
+      db.collection("data").get().then((snapshot) => {
         snapshot.forEach((document) => {
           const doc = document.data();
           _array.push(doc.name);
           _tableData.push(
             <tr key={document.id}>
               <td>
-                <Link href={"/firebase/delete?id=" + document.id} legacyBehavior>
+                <Link href={"/components/delete?id=" + document.id} legacyBehavior>
                   <a>{document.id}</a>
                 </Link>
               </td>
@@ -135,14 +129,14 @@ export default function Home() {
   const doAction = ((e: React.MouseEvent<HTMLButtonElement>) => {
     const _tableData: any[] = [];
 
-    db.collection("mydata").where("name", "==", search)
+    db.collection("data").where("name", "==", search)
       .get().then((snapshot) => {
         snapshot.forEach((document) => {
           const doc = document.data();
           _tableData.push(
             <tr key={document.id}>
               <td>
-                <Link href={"/firebase/delete?id=" + document.id} legacyBehavior>
+                <Link href={"/components/delete?id=" + document.id} legacyBehavior>
                   <a>{document.id}</a>
                 </Link>
               </td>
@@ -154,9 +148,9 @@ export default function Home() {
         });
         setTableData(_tableData);
         if (_tableData.length === 0) {
-          setMessage("検索結果: ");
+          setMessage("Name: ");
         } else {
-          setMessage("検索結果: " + search);
+          setMessage("Name: " + search);
         }
     });
   });
@@ -166,12 +160,13 @@ export default function Home() {
       {hasDocument && isLoading &&
         <CircleSpinnerOverlay overlayColor="rgba(0, 0, 0, 0.2)" />
       }
+      <Header header="React" />
       <div className="container">
-        <h3 className="my-3 text-primary text-center" style={h3}>{title}</h3>
+        <h3 className="my-2 text-primary text-center" style={h3}>{title}</h3>
         <div className="bg-dark card p-3 text-center">
-          <h5 className="mb-4" style={p}>{message}</h5>
+          <h5 className="mb-4" style={h5}>{message}</h5>
           <div className="text-left">
-            <div className="form-group d-flex align-items-center justify-content-between" style={div}>
+            <div className="form-group d-flex align-items-center justify-content-between" style={div_mb16}>
               <select className="form-select bg-light" onChange={doChangeSearch}>
                 {selectData}
               </select>
@@ -196,7 +191,7 @@ export default function Home() {
             </table>
           </div>
           <div className="d-flex justify-content-end">
-            <Link href="/firebase/create" legacyBehavior>
+            <Link href="/components/create" legacyBehavior>
               <a>Go to Create page &gt;&gt;</a>
             </Link>
           </div>
