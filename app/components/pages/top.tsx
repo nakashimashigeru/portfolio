@@ -5,11 +5,10 @@ import Link from "next/link";
 import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
 import "../firebase";
-import Header from "../header";
 
 const db = firebase.firestore();
 
-export default function Home() {
+export default function Top() {
   const h3 = {
     color: "#99d",
     fontSize: "24pt",
@@ -62,18 +61,6 @@ export default function Home() {
   const [message, setMessage] = useState("Now Loading...");
   const [search, setSearch] = useState("");
   const ignore = useRef(false);
-
-  const onUnload = (event: BeforeUnloadEvent) => {
-    event.preventDefault();
-    event.returnValue = "";
-  }
-
-  useEffect(() => {
-    window.addEventListener('beforeunload', onUnload);
-    return () => {
-      window.removeEventListener('beforeunload', onUnload);
-    }
-  });
 
   useEffect(() => {
     if (!ignore.current) {
@@ -160,7 +147,6 @@ export default function Home() {
       {hasDocument && isLoading &&
         <CircleSpinnerOverlay overlayColor="rgba(0, 0, 0, 0.2)" />
       }
-      <Header header="React" />
       <div className="container">
         <h3 className="my-2 text-primary text-center" style={h3}>{title}</h3>
         <div className="bg-dark card p-3 text-center">

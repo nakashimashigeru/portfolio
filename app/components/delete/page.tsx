@@ -80,7 +80,7 @@ export default function Home() {
   const doAction = (async (e: React.MouseEvent<HTMLButtonElement>) => {
     if (documentID !== null) {
       await db.collection("data").doc(documentID).delete().then(ref => {
-        router.push("/components/top");
+        router.push("/");
       });
     }
   });
@@ -104,7 +104,7 @@ export default function Home() {
             Delete
           </button>
           <div className="d-flex justify-content-between" style={div_mt16}>
-            <Link href="/components/top" legacyBehavior>
+            <Link href="/" legacyBehavior>
               <a>&lt;&lt; Back to Top page</a>
             </Link>
           </div>

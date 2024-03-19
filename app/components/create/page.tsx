@@ -79,7 +79,7 @@ export default function Home() {
         age: _ob.age,
       };
       db.collection("data").add(ob).then(ref => {
-        router.push("/components/top");
+        router.push("/");
       });
     } catch (error) {
       console.log(error);
@@ -113,7 +113,7 @@ export default function Home() {
             </form>
           </div>
           <div className="d-flex justify-content-between" style={div_mt16}>
-            <Link href="/components/top" legacyBehavior>
+            <Link href="/" legacyBehavior>
               <a>&lt;&lt; Back to Top page</a>
             </Link>
           </div>
