@@ -12,17 +12,16 @@ type Profile = {
   name: string;
   mail: string;
   age: number;
-}
+};
 
 const db = firebase.firestore();
 
 export default function Home() {
-  const subtitle = {
+  const h3 = {
     color: "#99d",
     fontSize: "24pt",
     fontWeight: "bold",
-    margin: "0px 5px",
-    textAlign: "center",
+    height: "38px",
   } as const;
 
   const h5 = {
@@ -90,9 +89,9 @@ export default function Home() {
       {hasDocument && isLoading &&
         <CircleSpinnerOverlay overlayColor="rgba(0, 0, 0, 0.2)" />
       }
-      <Header header="React" />
+      <Header title="React" />
       <div className="container">
-        <h3 className="my-3 text-primary text-center" style={subtitle}>{title}</h3>
+        <h3 className="my-2 text-primary text-center" style={h3}>{title}</h3>
         <div className="bg-dark card p-3 text-center">
           <h5 className="mb-4" style={h5}>{message}</h5>
           <pre className="card h5 m-3 p-3 text-left">

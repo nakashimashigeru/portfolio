@@ -5,7 +5,7 @@ type Props = {
   alt: string;
   width: number;
   height: number;
-}
+};
 
 export default function LocalImage(props: Props) {
   const img = {

@@ -36,6 +36,7 @@ export default function Home() {
   const ignore = useRef(false);
   const [hasDocument, setHasDocument] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [headerTitle, setHeaderTitle] = useState("React");
   const [title, setTitle] = useState("");
   const [message, setMessage] = useState("Now Loading...");
 
@@ -50,7 +51,7 @@ export default function Home() {
           setTitle("Login page.");
           setMessage("Welcome to next.js!");
           if (currentUser) {
-            localStorage.setItem("displayName", "Login User: " + currentUser.displayName);
+            setHeaderTitle("Login User: " + currentUser.displayName);
           }
         } catch (error) {
           console.log(error);
@@ -74,7 +75,7 @@ export default function Home() {
         {hasDocument && isLoading &&
           <CircleSpinnerOverlay overlayColor="rgba(0, 0, 0, 0.2)" />
         }
-        <Header header="React" />
+        <Header title={headerTitle} />
         {auth.currentUser !== null ?
           <Top />
           :

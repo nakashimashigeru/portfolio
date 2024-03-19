@@ -1,10 +1,11 @@
 "use client";
-import { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { CircleSpinnerOverlay } from "react-spinner-overlay";
 import Link from "next/link";
 import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
 import "../firebase";
+import CreateModal from "../modal/createModal";
 
 const db = firebase.firestore();
 
@@ -21,6 +22,10 @@ export default function Top() {
     color: "#669",
     fontSize: "18pt",
     textAlign: "left",
+  } as const;
+
+  const div_mb8 = {
+    marginBottom: "8px",
   } as const;
 
   const div_mb16 = {
@@ -52,15 +57,15 @@ export default function Top() {
     width: "20%",
   } as const;
 
+  const ignore = useRef(false);
   const title = "Top page.";
   const initialData: any[] = [];
   const [hasDocument, setHasDocument] = useState(false);
   const [tableData, setTableData] = useState(initialData);
   const [selectData, setSelectData] = useState(initialData);
   const [isLoading, setIsLoading] = useState(true);
-  const [message, setMessage] = useState("Now Loading...");
   const [search, setSearch] = useState("");
-  const ignore = useRef(false);
+  const [modalShow, setModalShow] = React.useState(false);
 
   useEffect(() => {
     if (!ignore.current) {
@@ -98,10 +103,6 @@ export default function Top() {
         setTableData(_tableData);
         setSelectData(_selectData);
         setIsLoading(false);
-        const _displayName = localStorage.getItem("displayName");
-        if (_displayName) {
-          setMessage(_displayName);
-        }
       });
     }
     return () => {
@@ -134,11 +135,6 @@ export default function Top() {
           );
         });
         setTableData(_tableData);
-        if (_tableData.length === 0) {
-          setMessage("Name: ");
-        } else {
-          setMessage("Name: " + search);
-        }
     });
   });
 
@@ -148,9 +144,13 @@ export default function Top() {
         <CircleSpinnerOverlay overlayColor="rgba(0, 0, 0, 0.2)" />
       }
       <div className="container">
-        <h3 className="my-2 text-primary text-center" style={h3}>{title}</h3>
+        <div className="d-flex align-items-center justify-content-between" style={div_mb8}>
+          <h3 className="text-primary text-center" style={h3}>{title}</h3>
+          <button className="btn btn-danger" onClick={() => setModalShow(true)}>
+            Open Create Modal
+          </button>
+        </div>
         <div className="bg-dark card p-3 text-center">
-          <h5 className="mb-4" style={h5}>{message}</h5>
           <div className="text-left">
             <div className="form-group d-flex align-items-center justify-content-between" style={div_mb16}>
               <select className="form-select bg-light" onChange={doChangeSearch}>
@@ -176,13 +176,9 @@ export default function Top() {
               </tbody>
             </table>
           </div>
-          <div className="d-flex justify-content-end">
-            <Link href="/components/create" legacyBehavior>
-              <a>Go to Create page &gt;&gt;</a>
-            </Link>
-          </div>
         </div>
       </div>
+      <CreateModal show={modalShow} onHide={() => setModalShow(false)} />
     </div>
   );
 }

@@ -1,6 +1,6 @@
 type Props = {
-  header: string;
-}
+  title: string;
+};
 
 export default function Header(props: Props) {
   const h1 = {
@@ -12,7 +12,7 @@ export default function Header(props: Props) {
   return (
     <div>
       <h1 className="bg-dark text-white display-4" style={h1}>
-        {props.header}
+        {props.title}
       </h1>
     </div>
   );
