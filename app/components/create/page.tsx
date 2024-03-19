@@ -8,7 +8,7 @@ import firebase from "firebase/compat/app";
 import "../firebase";
 import Header from "../header";
 
-interface Profile {
+type Profile = {
   name: string;
   mail: string;
   age: number;

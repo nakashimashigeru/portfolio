@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-interface Props {
+type Props = {
   url: string;
   alt: string;
   width: number;
