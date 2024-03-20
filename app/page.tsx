@@ -43,7 +43,7 @@ export default function Home() {
   const ignore = useRef(false);
   const [hasDocument, setHasDocument] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [headerTitle, setHeaderTitle] = useState("ritsuan");
+  const [headerTitle, setHeaderTitle] = useState("");
   const [title, setTitle] = useState("");
   const [message, setMessage] = useState("Now Loading...");
 
@@ -55,11 +55,9 @@ export default function Home() {
       const unsubscribed = auth.onAuthStateChanged((currentUser) => {
         try {
           setIsLoading(false);
+          setHeaderTitle("React");
           setTitle("Login page.");
           setMessage("Welcome to next.js!");
-          if (currentUser) {
-            setHeaderTitle("user: " + currentUser.displayName);
-          }
         } catch (error) {
           console.log(error);
         }
@@ -82,7 +80,7 @@ export default function Home() {
         {hasDocument && isLoading &&
           <CircleSpinnerOverlay overlayColor="rgba(0, 0, 0, 0.2)" />
         }
-        <Header title={headerTitle} />
+        <Header title={headerTitle} isLoading={isLoading} />
         {auth.currentUser !== null ?
           <div>
             <Top />
@@ -92,9 +90,9 @@ export default function Home() {
           </div>
           :
           <div className="container">
-            <h3 className="my-3 text-primary text-center" style={h3}>{title}</h3>
+            <h3 className="text-primary text-center" style={h3}>{title}</h3>
             <div className="bg-dark card p-3 text-center">
-              <h5 className="mb-4" style={h5}>{message}</h5>
+              <h5 className="mb-3" style={h5}>{message}</h5>
               {isLoading ?
                 <div>
                   <LocalImage url="Loading.jpg" alt="小林 由依" width={300} height={300} />

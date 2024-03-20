@@ -6,7 +6,6 @@ import { useRouter, useSearchParams } from "next/navigation";
 import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
 import "../firebase";
-import Header from "../header";
 
 type Profile = {
   name: string;
@@ -89,7 +88,6 @@ export default function Home() {
       {hasDocument && isLoading &&
         <CircleSpinnerOverlay overlayColor="rgba(0, 0, 0, 0.2)" />
       }
-      <Header title="React" />
       <div className="container">
         <h3 className="my-2 text-primary text-center" style={h3}>{title}</h3>
         <div className="bg-dark card p-3 text-center">
