@@ -42,10 +42,17 @@ export default function AddModal(props: any) {
   const label = {
     color: "white",
     display: "block",
+    textAlign: "left",
     width: "20%",
   } as const;
 
-  const button = {
+  const button_left = {
+    marginLeft: "8px",
+    width: "160px",
+  } as const;
+
+  const button_right = {
+    marginRight: "8px",
     width: "160px",
   } as const;
 
@@ -92,26 +99,26 @@ export default function AddModal(props: any) {
       <Modal.Body>
         <div className="container">
           <div className="bg-dark card p-3 text-center">
-            <h5 className="mb-4" style={h5}>{message}</h5>
+            <h5 className="mb-3" style={h5}>{message}</h5>
             <div className="text-left">
               <form onSubmit={handleSubmit(doSubmit)}>
-                <div className="form-group d-flex align-items-center justify-content-between" style={div_mb16}>
+                <div className="form-group d-flex flex-column flex-md-row align-items-md-center" style={div_mb16}>
                   <label style={label}>名前</label>
                   <input className="form-control" type="text" placeholder="Input Name" required {...register("name", { required: true })} />
                 </div>
-                <div className="form-group d-flex align-items-center justify-content-between" style={div_mb16}>
+                <div className="form-group d-flex flex-column flex-md-row align-items-md-center" style={div_mb16}>
                   <label style={label}>メール</label>
                   <input className="form-control" type="email" placeholder="Input Mail" required {...register("mail", { required: true })} />
                 </div>
-                <div className="form-group d-flex align-items-center justify-content-between" style={div_mb16}>
+                <div className="form-group d-flex flex-column flex-md-row align-items-md-center" style={div_mb16}>
                   <label style={label}>年齢</label>
                   <input className="form-control" type="number" required {...register("age", { required: true })} />
                 </div>
                 <div className="d-flex justify-content-between" style={div_mt16}>
-                  <button className="btn btn-success" style={button}>
+                  <button className="btn btn-success" style={button_right}>
                     Create
                   </button>
-                  <Button className="btn btn-danger" onClick={props.onHide} style={button}>
+                  <Button className="btn btn-danger" onClick={props.onHide} style={button_left}>
                     Close
                   </Button>
                 </div>
