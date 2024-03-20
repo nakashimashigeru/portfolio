@@ -43,7 +43,7 @@ export default function Home() {
   const ignore = useRef(false);
   const [hasDocument, setHasDocument] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [headerTitle, setHeaderTitle] = useState("React");
+  const [headerTitle, setHeaderTitle] = useState("ritsuan");
   const [title, setTitle] = useState("");
   const [message, setMessage] = useState("Now Loading...");
 
