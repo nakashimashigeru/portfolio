@@ -13,7 +13,7 @@ type Profile = {
 
 const db = firebase.firestore();
 
-export default function CreateModal(props: any) {
+export default function AddModal(props: any) {
   const header = {
     padding: "0px 16px",
   } as const;
@@ -49,8 +49,8 @@ export default function CreateModal(props: any) {
     width: "160px",
   } as const;
 
-  const title = "Create page.";
-  const message = "新規登録";
+  const title = "Add page.";
+  const message = "新規追加";
 
   const {
     register,

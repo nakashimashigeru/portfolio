@@ -5,7 +5,7 @@ import Link from "next/link";
 import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
 import "../firebase";
-import CreateModal from "../modal/createModal";
+import AddModal from "../modal/addModal";
 
 const db = firebase.firestore();
 
@@ -147,7 +147,7 @@ export default function Top() {
         <div className="d-flex align-items-center justify-content-between" style={div_mb8}>
           <h3 className="text-primary text-center" style={h3}>{title}</h3>
           <button className="btn btn-danger" onClick={() => setModalShow(true)}>
-            Open Create Modal
+            新規追加
           </button>
         </div>
         <div className="bg-dark card p-3 text-center">
@@ -178,7 +178,7 @@ export default function Top() {
           </div>
         </div>
       </div>
-      <CreateModal show={modalShow} onHide={() => setModalShow(false)} />
+      <AddModal show={modalShow} onHide={() => setModalShow(false)} />
     </div>
   );
 }
