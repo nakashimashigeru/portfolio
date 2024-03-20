@@ -87,7 +87,7 @@ export default function Home() {
           <div>
             <Top />
             <div style={footer}>
-              <Footer />
+              <Footer isLoading={isLoading} />
             </div>
           </div>
           :
@@ -110,7 +110,7 @@ export default function Home() {
               }
             </div>
             <div style={footer}>
-              <Footer />
+              <Footer isLoading={isLoading} />
             </div>
           </div>
         }

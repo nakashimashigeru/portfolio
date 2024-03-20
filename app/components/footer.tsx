@@ -1,9 +1,17 @@
 "use client";
 import { useRef, useState, useEffect } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCopyright } from "@fortawesome/free-solid-svg-icons";
 
-export default function Footer() {
+type Props = {
+  isLoading: boolean;
+};
+
+export default function Footer(props: Props) {
   const [footer, setFooter] = useState("copyright wait...");
   const ignore = useRef(false);
+
+  const iconStyle: React.CSSProperties = { marginRight: 8, fontSize: 18 };
 
   useEffect(() => {
     if (!ignore.current) {
@@ -25,8 +33,17 @@ export default function Footer() {
   }, []);
 
   return (
-  <div className="h6 my-4 text-center">
-    <div>{footer}</div>
-  </div>
+    <div className="h6 my-4 text-center">
+      {props.isLoading ?
+        <div>
+          {footer}
+        </div>
+        :
+        <div className="d-flex align-items-center justify-content-center">
+          <FontAwesomeIcon style={iconStyle} icon={faCopyright} />
+          {footer}
+        </div>
+      }
+    </div>
   );
 }
