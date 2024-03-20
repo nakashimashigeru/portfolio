@@ -4,10 +4,11 @@ import { CookiesProvider } from "react-cookie";
 import { CircleSpinnerOverlay } from "react-spinner-overlay";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
-import { signInWithRedirect, User } from 'firebase/auth';
+import { signInWithRedirect } from 'firebase/auth';
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
 import { auth, provider } from "./components/firebase";
+import Footer from "./components/footer";
 import Header from "./components/header";
 import LocalImage from "./components/image";
 import Top from "./components/pages/top";
@@ -31,6 +32,12 @@ export default function Home() {
     width: "280px",
   } as const;
 
+  const footer = {
+    position: "sticky",
+    top: "100vh",
+    width: "100%",
+  } as const;
+
   const iconStyle: React.CSSProperties = { marginRight: 8, fontSize: 18 };
 
   const ignore = useRef(false);
@@ -51,7 +58,7 @@ export default function Home() {
           setTitle("Login page.");
           setMessage("Welcome to next.js!");
           if (currentUser) {
-            setHeaderTitle("Login User: " + currentUser.displayName);
+            setHeaderTitle("user: " + currentUser.displayName);
           }
         } catch (error) {
           console.log(error);
@@ -77,7 +84,12 @@ export default function Home() {
         }
         <Header title={headerTitle} />
         {auth.currentUser !== null ?
-          <Top />
+          <div>
+            <Top />
+            <div style={footer}>
+              <Footer />
+            </div>
+          </div>
           :
           <div className="container">
             <h3 className="my-3 text-primary text-center" style={h3}>{title}</h3>
@@ -96,6 +108,9 @@ export default function Home() {
                   </button>
                 </div>
               }
+            </div>
+            <div style={footer}>
+              <Footer />
             </div>
           </div>
         }

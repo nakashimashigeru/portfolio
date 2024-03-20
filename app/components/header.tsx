@@ -4,7 +4,7 @@ type Props = {
 
 export default function Header(props: Props) {
   const h1 = {
-    fontSize: "18pt",
+    fontSize: "14pt",
     padding: "8px",
     textAlign: "left"
   } as const;

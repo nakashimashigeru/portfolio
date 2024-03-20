@@ -18,12 +18,6 @@ export default function Top() {
     textAlign: "center",
   } as const;
 
-  const h5 = {
-    color: "#669",
-    fontSize: "18pt",
-    textAlign: "left",
-  } as const;
-
   const div_mb8 = {
     marginBottom: "8px",
   } as const;
@@ -32,13 +26,14 @@ export default function Top() {
     marginBottom: "16px",
   } as const;
 
-  const button = {
+  const button_left = {
+    marginLeft: "8px",
     width: "160px",
   } as const;
 
   const table = {
     display: "block",
-    height: "calc(100vh / 2)",
+    height: "calc(100vh - 280px)",
     margin: "8px auto 16px",
     overflowY: "auto",
   } as const;
@@ -156,7 +151,7 @@ export default function Top() {
               <select className="form-select bg-light" onChange={doChangeSearch}>
                 {selectData}
               </select>
-              <button className="btn btn-primary" onClick={doAction} style={button}>
+              <button className="btn btn-primary" onClick={doAction} style={button_left}>
                 検索
               </button>
             </div>

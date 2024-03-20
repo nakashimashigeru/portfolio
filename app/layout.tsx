@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Suspense } from "react";
-import Footer from "../app/components/footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,12 +18,6 @@ export default function RootLayout({
     overflow: "hidden",
   } as const;
 
-  const footer = {
-    position: "sticky",
-    top: "100vh",
-    width: "100%",
-  } as const;
-
   return (
     <html lang="ja">
       <head>
@@ -35,9 +28,6 @@ export default function RootLayout({
         <Suspense>
           {children}
         </Suspense>
-        <div style={footer}>
-          <Footer />
-        </div>
       </body>
     </html>
   );
