@@ -33,7 +33,7 @@ export default function Top() {
 
   const table = {
     display: "block",
-    height: "calc(100vh / 2)",
+    height: "calc(100vh - 235px)",
     margin: "8px auto 16px",
     overflowY: "auto",
   } as const;
@@ -145,7 +145,7 @@ export default function Top() {
             新規追加
           </button>
         </div>
-        <div className="bg-dark card p-3 text-center">
+        <div>
           <div className="text-left">
             <div className="form-group d-flex align-items-center justify-content-between" style={div_mb16}>
               <select className="form-select bg-light" onChange={doChangeSearch}>
@@ -157,13 +157,13 @@ export default function Top() {
             </div>
           </div>
           <div className="table-responsive-sm table-responsive-md">
-            <table className="table table-dark table-hover table-striped" style={table}>
+            <table className="table table-hover table-striped" style={table}>
               <thead style={thead}>
                 <tr>
-                  <th style={th_ID}>ID</th>
-                  <th style={th}>Name</th>
-                  <th style={th}>Mail</th>
-                  <th style={th}>Age</th>
+                  <th className="bg-dark text-white" style={th_ID}>ID</th>
+                  <th className="bg-dark text-white" style={th}>Name</th>
+                  <th className="bg-dark text-white" style={th}>Mail</th>
+                  <th className="bg-dark text-white" style={th}>Age</th>
                 </tr>
               </thead>
               <tbody>

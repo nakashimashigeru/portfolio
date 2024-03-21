@@ -85,6 +85,7 @@ export default function AddModal(props: any) {
       {...props}
       aria-labelledby="contained-modal-title-vcenter"
       backdrop="static"
+      centered
       keyboard={false}
       size="lg"
     >

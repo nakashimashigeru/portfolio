@@ -75,10 +75,7 @@ export default function Home() {
         }
         <Header title={headerTitle} isLoading={isLoading} />
         {auth.currentUser !== null ?
-          <div>
-            <Top />
-            <Footer isLoading={isLoading} />
-          </div>
+          <Top />
           :
           <div className="container">
             <h3 className="text-primary text-center" style={h3}>{title}</h3>
