@@ -86,11 +86,11 @@ export default function Home() {
               <h5 className="mb-3" style={h5}>{message}</h5>
               {isLoading ?
                 <div>
-                  <LocalImage url="Loading.jpg" alt="小林 由依" width={300} height={300} />
+                  <LocalImage url="loading.jpg" alt="小林 由依" width={300} height={300} />
                 </div>
                 :
                 <div>
-                  <LocalImage url="Login.jpg" alt="藤吉 夏鈴" width={300} height={300} />
+                  <LocalImage url="login.jpg" alt="藤吉 夏鈴" width={300} height={300} />
                   <button className="btn btn-danger" onClick={doLogin} style={button} disabled={auth.currentUser !== null ? true : false}>
                     <FontAwesomeIcon style={iconStyle} icon={faGoogle} />
                     Google アカウントでログイン

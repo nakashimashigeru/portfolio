@@ -25,7 +25,7 @@ export default function Header(props: Props) {
   return (
     <div>
       {props.isLoading ?
-        <h1 className="bg-dark text-white display-4" onClick={doAction} style={h1}>
+        <h1 className="bg-dark text-white display-4" style={h1}>
           {props.title}
         </h1>
         :

@@ -115,10 +115,10 @@ export default function AddModal(props: any) {
                 </div>
                 <div className="d-flex justify-content-between" style={div_mt16}>
                   <button className="btn btn-success" style={button_right}>
-                    Create
+                    Add
                   </button>
                   <Button className="btn btn-danger" onClick={props.onHide} style={button_left}>
-                    Close
+                    Cancel
                   </Button>
                 </div>
               </form>
