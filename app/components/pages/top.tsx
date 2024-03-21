@@ -157,7 +157,7 @@ export default function Top() {
             </div>
           </div>
           <div className="table-responsive-sm table-responsive-md">
-            <table className="table table-hover table-striped" style={table}>
+            <table className="table table-hover table-striped text-center" style={table}>
               <thead style={thead}>
                 <tr>
                   <th className="bg-dark text-white" style={th_ID}>ID</th>
