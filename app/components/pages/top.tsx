@@ -33,7 +33,7 @@ export default function Top() {
 
   const table = {
     display: "block",
-    height: "calc(100vh - 280px)",
+    height: "calc(100vh / 2)",
     margin: "8px auto 16px",
     overflowY: "auto",
   } as const;
@@ -52,9 +52,9 @@ export default function Top() {
     width: "20%",
   } as const;
 
-  const ignore = useRef(false);
   const title = "Top page.";
   const initialData: any[] = [];
+  const ignore = useRef(false);
   const [hasDocument, setHasDocument] = useState(false);
   const [tableData, setTableData] = useState(initialData);
   const [selectData, setSelectData] = useState(initialData);

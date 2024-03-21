@@ -8,10 +8,15 @@ type Props = {
 };
 
 export default function Footer(props: Props) {
-  const [footer, setFooter] = useState("copyright wait...");
-  const ignore = useRef(false);
+  const div = {
+    position: "sticky",
+    top: "100vh",
+    width: "100%",
+  } as const;
 
   const iconStyle: React.CSSProperties = { marginRight: 8, fontSize: 18 };
+  const ignore = useRef(false);
+  const [footer, setFooter] = useState("copyright wait...");
 
   useEffect(() => {
     if (!ignore.current) {
@@ -33,7 +38,7 @@ export default function Footer(props: Props) {
   }, []);
 
   return (
-    <div className="h6 my-4 text-center">
+    <div className="h6 my-4 text-center" style={div}>
       {props.isLoading ?
         <div>
           {footer}

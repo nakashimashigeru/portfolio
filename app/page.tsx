@@ -32,14 +32,7 @@ export default function Home() {
     width: "280px",
   } as const;
 
-  const footer = {
-    position: "sticky",
-    top: "100vh",
-    width: "100%",
-  } as const;
-
   const iconStyle: React.CSSProperties = { marginRight: 8, fontSize: 18 };
-
   const ignore = useRef(false);
   const [hasDocument, setHasDocument] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -84,9 +77,7 @@ export default function Home() {
         {auth.currentUser !== null ?
           <div>
             <Top />
-            <div style={footer}>
-              <Footer isLoading={isLoading} />
-            </div>
+            <Footer isLoading={isLoading} />
           </div>
           :
           <div className="container">
@@ -107,9 +98,7 @@ export default function Home() {
                 </div>
               }
             </div>
-            <div style={footer}>
-              <Footer isLoading={isLoading} />
-            </div>
+            <Footer isLoading={isLoading} />
           </div>
         }
       </div>

@@ -9,22 +9,27 @@ type Props = {
 
 export default function Header(props: Props) {
   const h1 = {
+    cursor: "pointer",
     fontSize: "18pt",
     height: "45px",
     padding: "8px",
-    textAlign: "left"
+    textAlign: "left",
   } as const;
 
   const iconStyle: React.CSSProperties = { marginRight: 8, fontSize: 18 };
 
+  const doAction = ((e: React.MouseEvent<HTMLHeadingElement, MouseEvent>) => {
+    location.reload();
+  });
+
   return (
     <div>
       {props.isLoading ?
-        <h1 className="bg-dark text-white display-4" style={h1}>
+        <h1 className="bg-dark text-white display-4" onClick={doAction} style={h1}>
           {props.title}
         </h1>
         :
-        <h1 className="bg-dark text-white display-4" style={h1}>
+        <h1 className="bg-dark text-white display-4" onClick={doAction} style={h1}>
           <FontAwesomeIcon style={iconStyle} icon={faReact} />
           {props.title}
         </h1>
