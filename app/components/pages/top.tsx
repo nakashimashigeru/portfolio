@@ -102,6 +102,7 @@ export default function Top() {
   });
 
   const doAction = ((e: React.MouseEvent<HTMLButtonElement>) => {
+    setIsLoading(true);
     const _tableData: any[] = [];
 
     db.collection("data").where("name", "==", search)
@@ -122,6 +123,7 @@ export default function Top() {
           );
         });
         setTableData(_tableData);
+        setIsLoading(false);
     });
   });
 
