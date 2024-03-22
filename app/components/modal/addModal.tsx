@@ -99,7 +99,7 @@ export default function AddModal(props: any) {
                   <label style={label}>年齢</label>
                   <input className="form-control" type="number" required {...register("age", { required: true })} />
                 </div>
-                <div className="d-flex justify-content-between" style={div_mt16}>
+                <div className="d-flex justify-content-center" style={div_mt16}>
                   <button className="btn btn-success" style={button_right}>
                     Add
                   </button>
