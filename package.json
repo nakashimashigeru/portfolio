@@ -20,9 +20,7 @@
     "react-cookie": "^7.1.0",
     "react-dom": "^18",
     "react-hook-form": "^7.51.1",
-    "react-loading-overlay-ts": "^2.0.2",
-    "react-spinner-overlay": "^0.1.33",
-    "swr": "^2.2.5"
+    "react-spinner-overlay": "^0.1.33"
   },
   "devDependencies": {
     "@types/node": "^20",
