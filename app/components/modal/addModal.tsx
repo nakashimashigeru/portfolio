@@ -18,19 +18,6 @@ export default function AddModal(props: any) {
     padding: "0px 16px",
   } as const;
 
-  const h3 = {
-    color: "#99d",
-    fontSize: "24pt",
-    fontWeight: "bold",
-    height: "38px",
-  } as const;
-
-  const h5 = {
-    color: "#669",
-    fontSize: "18pt",
-    textAlign: "left",
-  } as const;
-
   const div_mt16 = {
     marginTop: "16px",
   } as const;
@@ -57,7 +44,6 @@ export default function AddModal(props: any) {
   } as const;
 
   const title = "Add page.";
-  const message = "新規追加";
 
   const {
     register,
@@ -91,7 +77,7 @@ export default function AddModal(props: any) {
     >
       <Modal.Header closeButton style={header}>
         <Modal.Title id="contained-modal-title-vcenter">
-          <h3 className="my-2 text-primary text-center" style={h3}>
+          <h3 className="my-2 text-primary text-center">
             {title}
           </h3>
         </Modal.Title>
@@ -99,7 +85,6 @@ export default function AddModal(props: any) {
       <Modal.Body>
         <div className="container">
           <div className="bg-dark card p-3 text-center">
-            <h5 className="mb-3" style={h5}>{message}</h5>
             <div className="text-left">
               <form onSubmit={handleSubmit(doSubmit)}>
                 <div className="form-group d-flex flex-column flex-md-row align-items-md-center" style={div_mb16}>

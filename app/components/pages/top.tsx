@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import { CircleSpinnerOverlay } from "react-spinner-overlay";
 import Link from "next/link";
 import firebase from "firebase/compat/app";
@@ -10,14 +10,6 @@ import AddModal from "../modal/addModal";
 const db = firebase.firestore();
 
 export default function Top() {
-  const h3 = {
-    color: "#99d",
-    fontSize: "24pt",
-    fontWeight: "bold",
-    margin: "0px 5px",
-    textAlign: "center",
-  } as const;
-
   const div_mb8 = {
     marginBottom: "8px",
   } as const;
@@ -60,7 +52,7 @@ export default function Top() {
   const [selectData, setSelectData] = useState(initialData);
   const [isLoading, setIsLoading] = useState(true);
   const [search, setSearch] = useState("");
-  const [modalShow, setModalShow] = React.useState(false);
+  const [modalShow, setModalShow] = useState(false);
 
   useEffect(() => {
     if (!ignore.current) {
@@ -140,7 +132,7 @@ export default function Top() {
       }
       <div className="container">
         <div className="d-flex align-items-center justify-content-between" style={div_mb8}>
-          <h3 className="text-primary text-center" style={h3}>{title}</h3>
+          <h3 className="text-primary text-center">{title}</h3>
           <button className="btn btn-danger" onClick={() => setModalShow(true)}>
             新規追加
           </button>

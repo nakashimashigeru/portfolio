@@ -16,19 +16,6 @@ type Profile = {
 const db = firebase.firestore();
 
 export default function Home() {
-  const h3 = {
-    color: "#99d",
-    fontSize: "24pt",
-    fontWeight: "bold",
-    height: "38px",
-  } as const;
-
-  const h5 = {
-    color: "#669",
-    fontSize: "18pt",
-    textAlign: "left",
-  } as const;
-
   const div_mt16 = {
     marginTop: "16px",
   } as const;
@@ -45,7 +32,6 @@ export default function Home() {
   const [hasDocument, setHasDocument] = useState(false);
   const [data, setData] = useState({} as Profile);
   const [isLoading, setIsLoading] = useState(true);
-  const [message, setMessage] = useState("Now Loading...");
 
   const onUnload = (event: BeforeUnloadEvent) => {
     event.preventDefault();
@@ -68,12 +54,9 @@ export default function Home() {
         const profile = ob.data() as Profile;
         setData(profile);
         setIsLoading(false);
-        setMessage("削除");
       });
-    } else {
-      setMessage(message + ".");
     }
-  }, [message, documentID]);
+  }, [documentID]);
 
   const doAction = (async (e: React.MouseEvent<HTMLButtonElement>) => {
     if (documentID !== null) {
@@ -89,9 +72,8 @@ export default function Home() {
         <CircleSpinnerOverlay overlayColor="rgba(0, 0, 0, 0.2)" />
       }
       <div className="container">
-        <h3 className="my-2 text-primary text-center" style={h3}>{title}</h3>
+        <h3 className="my-2 text-primary text-center">{title}</h3>
         <div className="bg-dark card p-3 text-center">
-          <h5 className="mb-4" style={h5}>{message}</h5>
           <pre className="card h5 m-3 p-3 text-left">
             Name: {data.name ? data.name : "..."}<br/>
             Mail: {data.mail ? data.mail : "..."}<br/>
