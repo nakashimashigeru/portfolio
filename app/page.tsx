@@ -32,11 +32,10 @@ export default function Home() {
     width: "280px",
   } as const;
 
-  const iconStyle: React.CSSProperties = { marginRight: 8, fontSize: 18 };
+  const iconStyle: React.CSSProperties = { fontSize: 18, marginRight: 8 };
   const ignore = useRef(false);
   const [hasDocument, setHasDocument] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [headerTitle, setHeaderTitle] = useState("");
   const [title, setTitle] = useState("");
   const [message, setMessage] = useState("Now Loading...");
 
@@ -48,7 +47,6 @@ export default function Home() {
       const unsubscribed = auth.onAuthStateChanged((currentUser) => {
         try {
           setIsLoading(false);
-          setHeaderTitle("React");
           setTitle("Login page.");
           setMessage("Welcome to next.js!");
         } catch (error) {
@@ -73,7 +71,9 @@ export default function Home() {
         {hasDocument && isLoading &&
           <CircleSpinnerOverlay overlayColor="rgba(0, 0, 0, 0.2)" />
         }
-        <Header title={headerTitle} isLoading={isLoading} />
+        {!isLoading &&
+          <Header />
+        }
         {auth.currentUser !== null ?
           <Top />
           :
@@ -95,7 +95,9 @@ export default function Home() {
                 </div>
               }
             </div>
-            <Footer isLoading={isLoading} />
+            {!isLoading &&
+              <Footer />
+            }
           </div>
         }
       </div>

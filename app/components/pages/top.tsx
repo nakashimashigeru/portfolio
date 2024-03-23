@@ -1,11 +1,13 @@
 "use client";
 import { useRef, useState, useEffect } from "react";
 import { CircleSpinnerOverlay } from "react-spinner-overlay";
-import Link from "next/link";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrashCan, faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
 import "../firebase";
 import AddModal from "../modal/addModal";
+import DeleteModal from "../modal/deleteModal";
 
 const db = firebase.firestore();
 
@@ -16,6 +18,10 @@ export default function Top() {
 
   const div_mb16 = {
     marginBottom: "16px",
+  } as const;
+
+  const button = {
+    width: "90px",
   } as const;
 
   const button_left = {
@@ -37,22 +43,21 @@ export default function Top() {
   } as const;
 
   const th = {
-    width: "50%",
-  } as const;
-
-  const th_ID = {
-    width: "20%",
+    width: "100%",
   } as const;
 
   const title = "Top page.";
   const initialData: any[] = [];
   const ignore = useRef(false);
+  const iconStyle: React.CSSProperties = { color: "#212529", cursor: "pointer", fontSize: 24 };
   const [hasDocument, setHasDocument] = useState(false);
   const [tableData, setTableData] = useState(initialData);
   const [selectData, setSelectData] = useState(initialData);
   const [isLoading, setIsLoading] = useState(true);
   const [search, setSearch] = useState("");
-  const [modalShow, setModalShow] = useState(false);
+  const [documentID, setDocumentID] = useState("");
+  const [addModalShow, setAddModalShow] = useState(false);
+  const [deleteModalShow, setDeleteModalShow] = useState(false);
 
   useEffect(() => {
     if (!ignore.current) {
@@ -62,20 +67,18 @@ export default function Top() {
       const _array: string[] = [];
       const _tableData: any[] = [];
       const _selectData: any[] = [<option key="">選択してください</option>];
+      const iconStyle: React.CSSProperties = { color: "#dc3545", cursor: "pointer", fontSize: 22, width: 90 };
       db.collection("data").get().then((snapshot) => {
         snapshot.forEach((document) => {
           const doc = document.data();
           _array.push(doc.name);
           _tableData.push(
             <tr key={document.id}>
-              <td>
-                <Link href={"/components/delete?id=" + document.id} legacyBehavior>
-                  <a>{document.id}</a>
-                </Link>
-              </td>
               <td>{doc.name}</td>
-              <td>{doc.mail}</td>
               <td>{doc.age}</td>
+              <td>
+                <FontAwesomeIcon style={iconStyle} icon={faTrashCan} onClick={() => {setDocumentID(document.id); setDeleteModalShow(true);}} />
+              </td>
             </tr>
           );
         });
@@ -97,28 +100,21 @@ export default function Top() {
     };
   }, []);
 
-  const doChangeSearch = ((e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSearch(e.target.value);
-  });
-
   const doAction = ((e: React.MouseEvent<HTMLButtonElement>) => {
     setIsLoading(true);
     const _tableData: any[] = [];
-
+    const iconStyle: React.CSSProperties = { color: "#dc3545", cursor: "pointer", fontSize: 22, width: 90 };
     db.collection("data").where("name", "==", search)
       .get().then((snapshot) => {
         snapshot.forEach((document) => {
           const doc = document.data();
           _tableData.push(
             <tr key={document.id}>
-              <td>
-                <Link href={"/components/delete?id=" + document.id} legacyBehavior>
-                  <a>{document.id}</a>
-                </Link>
-              </td>
               <td>{doc.name}</td>
-              <td>{doc.mail}</td>
               <td>{doc.age}</td>
+              <td>
+                <FontAwesomeIcon style={iconStyle} icon={faTrashCan} onClick={() => {setDocumentID(document.id); setDeleteModalShow(true);}} />
+              </td>
             </tr>
           );
         });
@@ -127,22 +123,28 @@ export default function Top() {
     });
   });
 
+  const doSearch = ((e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSearch(e.target.value);
+  });
+
   return (
     <div>
       {hasDocument && isLoading &&
         <CircleSpinnerOverlay overlayColor="rgba(0, 0, 0, 0.2)" />
       }
+      <AddModal show={addModalShow} onHide={() => setAddModalShow(false)} />
+      {documentID !== "" &&
+        <DeleteModal id={documentID} show={deleteModalShow} onHide={() => setDeleteModalShow(false)} />
+      }
       <div className="container">
         <div className="d-flex align-items-center justify-content-between" style={div_mb8}>
           <h3 className="text-primary text-center">{title}</h3>
-          <button className="btn btn-danger" onClick={() => setModalShow(true)}>
-            新規追加
-          </button>
+          <FontAwesomeIcon style={iconStyle} icon={faUserPlus} onClick={() => setAddModalShow(true)} />
         </div>
         <div>
           <div className="text-left">
             <div className="form-group d-flex align-items-center justify-content-between" style={div_mb16}>
-              <select className="form-select bg-light" onChange={doChangeSearch}>
+              <select className="form-select bg-light" onChange={doSearch}>
                 {selectData}
               </select>
               <button className="btn btn-primary" onClick={doAction} style={button_left}>
@@ -154,10 +156,9 @@ export default function Top() {
             <table className="table table-hover table-striped text-center" style={table}>
               <thead style={thead}>
                 <tr>
-                  <th className="bg-dark text-white" style={th_ID}>ID</th>
                   <th className="bg-dark text-white" style={th}>Name</th>
-                  <th className="bg-dark text-white" style={th}>Mail</th>
-                  <th className="bg-dark text-white" style={th}>Age</th>
+                  <th className="bg-dark text-white">Age</th>
+                  <th className="bg-dark text-white"></th>
                 </tr>
               </thead>
               <tbody>
@@ -167,7 +168,6 @@ export default function Top() {
           </div>
         </div>
       </div>
-      <AddModal show={modalShow} onHide={() => setModalShow(false)} />
     </div>
   );
 }

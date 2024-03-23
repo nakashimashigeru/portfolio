@@ -2,12 +2,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faReact } from "@fortawesome/free-brands-svg-icons";
 
-type Props = {
-  title: string;
-  isLoading: boolean;
-};
-
-export default function Header(props: Props) {
+export default function Header() {
   const h1 = {
     cursor: "pointer",
     fontSize: "18pt",
@@ -16,7 +11,8 @@ export default function Header(props: Props) {
     textAlign: "left",
   } as const;
 
-  const iconStyle: React.CSSProperties = { marginRight: 8, fontSize: 18 };
+  const title = "RSTC";
+  const iconStyle: React.CSSProperties = { fontSize: 18, marginRight: 8 };
 
   const doAction = ((e: React.MouseEvent<HTMLHeadingElement, MouseEvent>) => {
     location.reload();
@@ -24,16 +20,10 @@ export default function Header(props: Props) {
 
   return (
     <div>
-      {props.isLoading ?
-        <h1 className="bg-dark text-white display-4" style={h1}>
-          {props.title}
-        </h1>
-        :
-        <h1 className="bg-dark text-white display-4" onClick={doAction} style={h1}>
-          <FontAwesomeIcon style={iconStyle} icon={faReact} />
-          {props.title}
-        </h1>
-      }
+      <h1 className="bg-dark text-white display-4" onClick={doAction} style={h1}>
+        <FontAwesomeIcon style={iconStyle} icon={faReact} />
+        {title}
+      </h1>
     </div>
   );
 }

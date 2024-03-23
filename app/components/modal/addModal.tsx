@@ -100,7 +100,7 @@ export default function AddModal(props: any) {
                   <input className="form-control" type="number" required {...register("age", { required: true })} />
                 </div>
                 <div className="d-flex justify-content-center" style={div_mt16}>
-                  <button className="btn btn-success" style={button_right}>
+                  <button className="btn btn-primary" style={button_right}>
                     Add
                   </button>
                   <Button className="btn btn-danger" onClick={props.onHide} style={button_left}>
