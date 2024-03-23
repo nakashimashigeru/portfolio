@@ -7,7 +7,6 @@ import "../firebase";
 
 type Profile = {
   name: string;
-  mail: string;
   age: number;
 };
 
@@ -20,17 +19,6 @@ export default function DeleteModal(props: any) {
 
   const div_mt16 = {
     marginTop: "16px",
-  } as const;
-
-  const div_mb16 = {
-    marginBottom: "16px",
-  } as const;
-
-  const label = {
-    color: "white",
-    display: "block",
-    textAlign: "left",
-    width: "20%",
   } as const;
 
   const button_left = {
@@ -90,8 +78,8 @@ export default function DeleteModal(props: any) {
         <div className="container">
           <div className="bg-dark card text-center text-white">
             <pre className="bg-dark h5 m-2 p-2">
-              Name: {data.name ? data.name : "..."}<br/>
-              Age: {data.age ? data.age : "..."}
+              Name: {data ? data.name : "..."}<br/>
+              Age: {data ? data.age : "..."}
             </pre>
           </div>
           <div className="d-flex justify-content-center" style={div_mt16}>

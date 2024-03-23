@@ -7,7 +7,6 @@ import "../firebase";
 
 type Profile = {
   name: string;
-  mail: string;
   age: number;
 };
 
@@ -55,7 +54,6 @@ export default function AddModal(props: any) {
     try {
       const ob = {
         name: _ob.name,
-        mail: _ob.mail,
         age: _ob.age,
       };
       db.collection("data").add(ob).then(ref => {
@@ -83,34 +81,28 @@ export default function AddModal(props: any) {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <div className="container">
-          <div className="bg-dark card p-3 text-center">
-            <div className="text-left">
-              <form onSubmit={handleSubmit(doSubmit)}>
-                <div className="form-group d-flex flex-column flex-md-row align-items-md-center" style={div_mb16}>
-                  <label style={label}>名前</label>
-                  <input className="form-control" type="text" placeholder="Input Name" required {...register("name", { required: true })} />
-                </div>
-                <div className="form-group d-flex flex-column flex-md-row align-items-md-center" style={div_mb16}>
-                  <label style={label}>メール</label>
-                  <input className="form-control" type="email" placeholder="Input Mail" required {...register("mail", { required: true })} />
-                </div>
-                <div className="form-group d-flex flex-column flex-md-row align-items-md-center" style={div_mb16}>
-                  <label style={label}>年齢</label>
-                  <input className="form-control" type="number" required {...register("age", { required: true })} />
-                </div>
-                <div className="d-flex justify-content-center" style={div_mt16}>
-                  <button className="btn btn-primary" style={button_right}>
-                    Add
-                  </button>
-                  <Button className="btn btn-danger" onClick={props.onHide} style={button_left}>
-                    Cancel
-                  </Button>
-                </div>
-              </form>
+        <form onSubmit={handleSubmit(doSubmit)}>
+          <div className="container">
+            <div className="bg-dark card p-3 text-center">
+              <div className="form-group d-flex flex-column flex-md-row align-items-md-center" style={div_mb16}>
+                <label style={label}>名前</label>
+                <input className="form-control" type="text" placeholder="Input Name" required {...register("name", { required: true })} />
+              </div>
+              <div className="form-group d-flex flex-column flex-md-row align-items-md-center">
+                <label style={label}>年齢</label>
+                <input className="form-control" type="number" required {...register("age", { required: true })} />
+              </div>
+            </div>
+            <div className="d-flex justify-content-center" style={div_mt16}>
+              <button className="btn btn-primary" style={button_right}>
+                Add
+              </button>
+              <Button className="btn btn-danger" onClick={props.onHide} style={button_left}>
+                Cancel
+              </Button>
             </div>
           </div>
-        </div>
+        </form>
       </Modal.Body>
     </Modal>
   );
