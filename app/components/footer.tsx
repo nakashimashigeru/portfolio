@@ -3,7 +3,11 @@ import { useRef, useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCopyright } from "@fortawesome/free-solid-svg-icons";
 
-export default function Footer() {
+type Props = {
+  isLoading: boolean;
+};
+
+export default function Footer(props: Props) {
   const div = {
     position: "sticky",
     top: "100vh",
@@ -35,10 +39,16 @@ export default function Footer() {
 
   return (
     <div className="h6 my-4 text-center" style={div}>
-      <div className="d-flex align-items-center justify-content-center">
-        <FontAwesomeIcon style={iconStyle} icon={faCopyright} />
-        {footer}
-      </div>
+      {props.isLoading ?
+        <div>
+          {footer}
+        </div>
+        :
+        <div className="d-flex align-items-center justify-content-center">
+          <FontAwesomeIcon style={iconStyle} icon={faCopyright} />
+          {footer}
+        </div>
+      }
     </div>
   );
 }

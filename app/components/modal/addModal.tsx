@@ -85,7 +85,7 @@ export default function AddModal(props: any) {
           <div className="container">
             <div className="bg-dark card p-3 text-center">
               <div className="form-group d-flex flex-column flex-md-row align-items-md-center" style={div_mb16}>
-                <label style={label}>名前</label>
+                <label style={label}>人名</label>
                 <input className="form-control" type="text" placeholder="Input Name" required {...register("name", { required: true })} />
               </div>
               <div className="form-group d-flex flex-column flex-md-row align-items-md-center">

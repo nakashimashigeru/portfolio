@@ -78,8 +78,8 @@ export default function DeleteModal(props: any) {
         <div className="container">
           <div className="bg-dark card text-center text-white">
             <pre className="bg-dark h5 m-2 p-2">
-              Name: {data ? data.name : "..."}<br/>
-              Age: {data ? data.age : "..."}
+              人名: {data ? data.name : "..."}<br/>
+              年齢: {data ? data.age : "..."}
             </pre>
           </div>
           <div className="d-flex justify-content-center" style={div_mt16}>

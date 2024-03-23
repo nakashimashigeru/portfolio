@@ -34,6 +34,7 @@ export default function Top() {
     height: "calc(100vh - 235px)",
     margin: "8px auto 16px",
     overflowY: "auto",
+    whiteSpace: "nowrap",
   } as const;
 
   const thead = {
@@ -156,8 +157,8 @@ export default function Top() {
             <table className="table table-hover table-striped text-center" style={table}>
               <thead style={thead}>
                 <tr>
-                  <th className="bg-dark text-white" style={th}>Name</th>
-                  <th className="bg-dark text-white">Age</th>
+                  <th className="bg-dark text-white" style={th}>人名</th>
+                  <th className="bg-dark text-white">年齢</th>
                   <th className="bg-dark text-white"></th>
                 </tr>
               </thead>

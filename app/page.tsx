@@ -15,11 +15,7 @@ import Top from "./components/pages/top";
 
 export default function Home() {
   const h3 = {
-    color: "#99d",
-    fontSize: "24pt",
-    fontWeight: "bold",
-    height: "38px",
-    textAlign: "center",
+    height: "40px",
   } as const;
 
   const h5 = {
@@ -36,6 +32,7 @@ export default function Home() {
   const ignore = useRef(false);
   const [hasDocument, setHasDocument] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [headerTitle, setHeaderTitle] = useState("wait...");
   const [title, setTitle] = useState("");
   const [message, setMessage] = useState("Now Loading...");
 
@@ -47,6 +44,7 @@ export default function Home() {
       const unsubscribed = auth.onAuthStateChanged((currentUser) => {
         try {
           setIsLoading(false);
+          setHeaderTitle("RSTC");
           setTitle("Login page.");
           setMessage("Welcome to next.js!");
         } catch (error) {
@@ -71,9 +69,7 @@ export default function Home() {
         {hasDocument && isLoading &&
           <CircleSpinnerOverlay overlayColor="rgba(0, 0, 0, 0.2)" />
         }
-        {!isLoading &&
-          <Header />
-        }
+        <Header title={headerTitle} isLoading={isLoading} />
         {auth.currentUser !== null ?
           <Top />
           :
@@ -95,9 +91,7 @@ export default function Home() {
                 </div>
               }
             </div>
-            {!isLoading &&
-              <Footer />
-            }
+            <Footer isLoading={isLoading} />
           </div>
         }
       </div>
