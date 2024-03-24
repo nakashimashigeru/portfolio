@@ -1,6 +1,7 @@
 "use client";
 import { Limelight } from "next/font/google";
 import { useState, useEffect } from "react";
+import { CircleSpinnerOverlay } from "react-spinner-overlay";
 import { Button, Modal } from 'react-bootstrap';
 import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
@@ -16,8 +17,12 @@ type Profile = {
 const db = firebase.firestore();
 
 export default function DeleteModal(props: any) {
+  const h3 = {
+    margin: "0px",
+  } as const;
+
   const header = {
-    padding: "0px 16px",
+    padding: "8px 16px",
   } as const;
 
   const div_mt16 = {
@@ -66,43 +71,48 @@ export default function DeleteModal(props: any) {
   });
 
   return (
-    <Modal
-      {...props}
-      aria-labelledby="contained-modal-title-vcenter"
-      backdrop="static"
-      centered
-      keyboard={false}
-      size="lg"
-    >
-      <Modal.Header closeButton style={header}>
-        <Modal.Title id="contained-modal-title-vcenter">
-          <h3 className="my-2 text-primary text-center">
-            {title}
-          </h3>
-        </Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <div className="container">
-          <div className="bg-dark card text-center text-white">
-            <pre className="bg-dark h5 m-2 p-2">
-              <p>
-                人名: <span className={limelight.className}>{data ? data.name : "..."}</span>
-              </p>
-              <p style={p_mb0}>
-                年齢: <span className={limelight.className}>{data ? data.age : "..."}</span>
-              </p>
-            </pre>
+    <div>
+      {hasDocument && isLoading &&
+        <CircleSpinnerOverlay overlayColor="rgba(0, 0, 0, 0.2)" />
+      }
+      <Modal
+        {...props}
+        aria-labelledby="contained-modal-title-vcenter"
+        backdrop="static"
+        centered
+        keyboard={false}
+        size="lg"
+      >
+        <Modal.Header closeButton style={header}>
+          <Modal.Title id="contained-modal-title-vcenter">
+            <h3 className="text-danger" style={h3}>
+              {title}
+            </h3>
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div className="container">
+            <div className="bg-dark card text-center text-white">
+              <pre className="bg-dark h5 m-2 p-2">
+                <p>
+                  人名: <span className={limelight.className}>{data ? data.name : "..."}</span>
+                </p>
+                <p style={p_mb0}>
+                  年齢: <span className={limelight.className}>{data ? data.age : "..."}</span>
+                </p>
+              </pre>
+            </div>
+            <div className="d-flex justify-content-center" style={div_mt16}>
+              <button className="btn btn-danger" onClick={doDelete} style={button_right} disabled={isLoading}>
+                Delete
+              </button>
+              <Button className="btn btn-light btn-outline-danger" onClick={props.onHide} style={button_left} disabled={isLoading}>
+                Cancel
+              </Button>
+            </div>
           </div>
-          <div className="d-flex justify-content-center" style={div_mt16}>
-            <button className="btn btn-primary" onClick={doDelete} style={button_right} disabled={isLoading}>
-              Delete
-            </button>
-            <Button className="btn btn-danger" onClick={props.onHide} style={button_left} disabled={isLoading}>
-              Cancel
-            </Button>
-          </div>
-        </div>
-      </Modal.Body>
-    </Modal>
+        </Modal.Body>
+      </Modal>
+    </div>
   );
 }
