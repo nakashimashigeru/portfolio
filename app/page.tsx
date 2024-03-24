@@ -15,13 +15,18 @@ import Top from "./components/pages/top";
 
 export default function Home() {
   const h3 = {
-    height: "40px",
+    fontSize: "26pt",
   } as const;
 
   const h5 = {
     color: "#669",
     fontSize: "18pt",
     textAlign: "center",
+  } as const;
+
+  const div = {
+    height: "40px",
+    marginBottom: "8px",
   } as const;
 
   const button = {
@@ -74,7 +79,9 @@ export default function Home() {
           <Top />
           :
           <div className="container">
-            <h3 className="text-primary text-center" style={h3}>{title}</h3>
+            <div className="text-center" style={div}>
+              <h3 className="text-primary" style={h3}>{title}</h3>
+            </div>
             <div className="bg-dark card p-3 text-center">
               <h5 className="mb-3" style={h5}>{message}</h5>
               {isLoading ?

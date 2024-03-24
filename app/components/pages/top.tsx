@@ -12,16 +12,17 @@ import DeleteModal from "../modal/deleteModal";
 const db = firebase.firestore();
 
 export default function Top() {
-  const div_mb8 = {
+  const h3 = {
+    fontSize: "26pt",
+  } as const;
+
+  const div = {
+    height: "40px",
     marginBottom: "8px",
   } as const;
 
   const div_mb16 = {
     marginBottom: "16px",
-  } as const;
-
-  const button = {
-    width: "90px",
   } as const;
 
   const button_left = {
@@ -55,7 +56,7 @@ export default function Top() {
   const [tableData, setTableData] = useState(initialData);
   const [selectData, setSelectData] = useState(initialData);
   const [isLoading, setIsLoading] = useState(true);
-  const [search, setSearch] = useState("");
+  const [find, setFind] = useState("");
   const [documentID, setDocumentID] = useState("");
   const [addModalShow, setAddModalShow] = useState(false);
   const [deleteModalShow, setDeleteModalShow] = useState(false);
@@ -105,7 +106,7 @@ export default function Top() {
     setIsLoading(true);
     const _tableData: any[] = [];
     const iconStyle: React.CSSProperties = { color: "#dc3545", cursor: "pointer", fontSize: 22, width: 90 };
-    db.collection("data").where("name", "==", search)
+    db.collection("data").where("name", "==", find)
       .get().then((snapshot) => {
         snapshot.forEach((document) => {
           const doc = document.data();
@@ -124,8 +125,8 @@ export default function Top() {
     });
   });
 
-  const doSearch = ((e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSearch(e.target.value);
+  const changeFind = ((e: React.ChangeEvent<HTMLSelectElement>) => {
+    setFind(e.target.value);
   });
 
   return (
@@ -138,18 +139,18 @@ export default function Top() {
         <DeleteModal id={documentID} show={deleteModalShow} onHide={() => setDeleteModalShow(false)} />
       }
       <div className="container">
-        <div className="d-flex align-items-center justify-content-between" style={div_mb8}>
-          <h3 className="text-primary text-center">{title}</h3>
+        <div className="d-flex align-items-center justify-content-between" style={div}>
+          <h3 className="text-primary text-center" style={h3}>{title}</h3>
           <FontAwesomeIcon style={iconStyle} icon={faUserPlus} onClick={() => setAddModalShow(true)} />
         </div>
         <div>
           <div className="text-left">
             <div className="form-group d-flex align-items-center justify-content-between" style={div_mb16}>
-              <select className="form-select bg-light" onChange={doSearch}>
+              <select className="form-select bg-light" onChange={changeFind}>
                 {selectData}
               </select>
               <button className="btn btn-primary" onClick={doAction} style={button_left}>
-                検索
+                Find
               </button>
             </div>
           </div>

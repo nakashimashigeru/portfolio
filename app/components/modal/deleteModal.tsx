@@ -1,9 +1,12 @@
 "use client";
+import { Limelight } from "next/font/google";
 import { useState, useEffect } from "react";
 import { Button, Modal } from 'react-bootstrap';
 import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
 import "../firebase";
+
+const limelight = Limelight({ weight: "400", subsets: ["latin"] });
 
 type Profile = {
   name: string;
@@ -19,6 +22,10 @@ export default function DeleteModal(props: any) {
 
   const div_mt16 = {
     marginTop: "16px",
+  } as const;
+
+  const p_mb0 = {
+    marginBottom: "0px",
   } as const;
 
   const button_left = {
@@ -78,8 +85,12 @@ export default function DeleteModal(props: any) {
         <div className="container">
           <div className="bg-dark card text-center text-white">
             <pre className="bg-dark h5 m-2 p-2">
-              人名: {data ? data.name : "..."}<br/>
-              年齢: {data ? data.age : "..."}
+              <p>
+                人名: <span className={limelight.className}>{data ? data.name : "..."}</span>
+              </p>
+              <p style={p_mb0}>
+                年齢: <span className={limelight.className}>{data ? data.age : "..."}</span>
+              </p>
             </pre>
           </div>
           <div className="d-flex justify-content-center" style={div_mt16}>
