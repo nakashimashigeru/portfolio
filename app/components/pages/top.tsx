@@ -8,11 +8,13 @@ import "firebase/compat/firestore";
 import "../firebase";
 import AddModal from "../modal/addModal";
 import DeleteModal from "../modal/deleteModal";
+import WikipediaModal from "../modal/wikipediaModal";
 
 const db = firebase.firestore();
 
 export default function Top() {
   const h3 = {
+    color: "#669",
     fontSize: "26pt",
   } as const;
 
@@ -58,14 +60,19 @@ export default function Top() {
   const [isLoading, setIsLoading] = useState(true);
   const [find, setFind] = useState("");
   const [documentID, setDocumentID] = useState("");
+  const [name, setName] = useState("");
   const [addModalShow, setAddModalShow] = useState(false);
   const [deleteModalShow, setDeleteModalShow] = useState(false);
+  const [wikipediaModalShow, setWikipediaModalShow] = useState(false);
 
   useEffect(() => {
     if (!ignore.current) {
       if (typeof document !== "undefined") {
         setHasDocument(true);
       }
+      const td = {
+        padding: 0,
+      } as const;
       const _array: string[] = [];
       const _tableData: any[] = [];
       const _selectData: any[] = [<option key="">選択してください</option>];
@@ -76,7 +83,11 @@ export default function Top() {
           _array.push(doc.name);
           _tableData.push(
             <tr key={document.id}>
-              <td>{doc.name}</td>
+              <td style={td}>
+                <button type="button" className="btn btn-link" onClick={() => {setName(doc.name); setWikipediaModalShow(true);}}>
+                  {doc.name}
+                </button>
+              </td>
               <td>{doc.age}</td>
               <td>
                 <FontAwesomeIcon style={iconStyle} icon={faTrashCan} onClick={() => {setDocumentID(document.id); setDeleteModalShow(true);}} />
@@ -104,6 +115,9 @@ export default function Top() {
 
   const doAction = ((e: React.MouseEvent<HTMLButtonElement>) => {
     setIsLoading(true);
+    const td = {
+      padding: 0,
+    } as const;
     const _tableData: any[] = [];
     const iconStyle: React.CSSProperties = { color: "#dc3545", cursor: "pointer", fontSize: 22, width: 90 };
     db.collection("data").where("name", "==", find)
@@ -112,7 +126,11 @@ export default function Top() {
           const doc = document.data();
           _tableData.push(
             <tr key={document.id}>
-              <td>{doc.name}</td>
+              <td style={td}>
+                <button type="button" className="btn btn-link" onClick={() => {setName(doc.name); setWikipediaModalShow(true);}}>
+                  {doc.name}
+                </button>
+              </td>
               <td>{doc.age}</td>
               <td>
                 <FontAwesomeIcon style={iconStyle} icon={faTrashCan} onClick={() => {setDocumentID(document.id); setDeleteModalShow(true);}} />
@@ -138,9 +156,10 @@ export default function Top() {
       {documentID !== "" &&
         <DeleteModal id={documentID} show={deleteModalShow} onHide={() => setDeleteModalShow(false)} />
       }
+      <WikipediaModal name={name} show={wikipediaModalShow} onHide={() => setWikipediaModalShow(false)} />
       <div className="container">
         <div className="d-flex align-items-center justify-content-between" style={div}>
-          <h3 className="text-primary text-center" style={h3}>{title}</h3>
+          <h3 style={h3}>{title}</h3>
           <FontAwesomeIcon style={iconStyle} icon={faUserPlus} onClick={() => setAddModalShow(true)} />
         </div>
         <div>

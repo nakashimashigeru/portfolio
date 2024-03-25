@@ -15,11 +15,11 @@ import Top from "./components/pages/top";
 
 export default function Home() {
   const h3 = {
+    color: "#669",
     fontSize: "26pt",
   } as const;
 
   const h5 = {
-    color: "#669",
     fontSize: "18pt",
     textAlign: "center",
   } as const;
@@ -80,10 +80,10 @@ export default function Home() {
           :
           <div className="container">
             <div className="text-center" style={div}>
-              <h3 className="text-primary" style={h3}>{title}</h3>
+              <h3 style={h3}>{title}</h3>
             </div>
             <div className="bg-dark card p-3 text-center">
-              <h5 className="mb-3" style={h5}>{message}</h5>
+              <h5 className="mb-3 text-white" style={h5}>{message}</h5>
               {isLoading ?
                 <div>
                   <LocalImage url="loading.jpg" alt="小林 由依" width={300} height={300} />
