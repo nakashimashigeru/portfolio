@@ -63,11 +63,15 @@ export default function DeleteModal(props: any) {
   }, [props.id]);
 
   const doDelete = (async (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (props.id !== "") {
-      await db.collection("data").doc(props.id).delete().then(ref => {
+    const result = await db.collection("data").doc(props.id).delete()
+      .then(ref => {
         location.reload();
+      })
+      .catch(error => {
+        alert(error);
       });
-    }
+
+    return result;
   });
 
   return (

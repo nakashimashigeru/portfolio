@@ -54,18 +54,21 @@ export default function AddModal(props: any) {
     formState: {errors}
   } = useForm({defaultValues: {name: "", mail: "", age: 0}});
 
-  const doSubmit = ((_ob: Profile) => {
-    try {
-      const ob = {
-        name: _ob.name,
-        age: _ob.age,
-      };
-      db.collection("data").add(ob).then(ref => {
+  const doSubmit = (async (_ob: Profile) => {
+    const ob = {
+      name: _ob.name,
+      age: _ob.age,
+    };
+
+    const result = await db.collection("data").add(ob)
+      .then(ref => {
         location.reload();
+      })
+      .catch(error => {
+        alert(error);
       });
-    } catch (error) {
-      console.log(error);
-    }
+
+    return result;
   });
 
   return (

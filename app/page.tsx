@@ -53,7 +53,7 @@ export default function Home() {
           setTitle("Login page.");
           setMessage("Welcome to next.js!");
         } catch (error) {
-          console.log(error);
+          alert(error);
         }
       });
     }
