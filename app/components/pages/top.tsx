@@ -70,9 +70,7 @@ export default function Top() {
       if (typeof document !== "undefined") {
         setHasDocument(true);
       }
-      const td = {
-        padding: 0,
-      } as const;
+      const td = { padding: 0 } as const;
       const _array: string[] = [];
       const _tableData: any[] = [];
       const _selectData: any[] = [<option key="">選択してください</option>];
@@ -84,7 +82,7 @@ export default function Top() {
           _tableData.push(
             <tr key={document.id}>
               <td style={td}>
-                <button type="button" className="btn btn-link" onClick={() => {setName(doc.name); setWikipediaModalShow(true);}}>
+                <button type="button" className="btn btn-link link-success" onClick={() => {setName(doc.name); setWikipediaModalShow(true);}}>
                   {doc.name}
                 </button>
               </td>
@@ -115,9 +113,7 @@ export default function Top() {
 
   const doAction = ((e: React.MouseEvent<HTMLButtonElement>) => {
     setIsLoading(true);
-    const td = {
-      padding: 0,
-    } as const;
+    const td = { padding: 0 } as const;
     const _tableData: any[] = [];
     const iconStyle: React.CSSProperties = { color: "#dc3545", cursor: "pointer", fontSize: 22, width: 90 };
     db.collection("data").where("name", "==", find)
@@ -127,7 +123,7 @@ export default function Top() {
           _tableData.push(
             <tr key={document.id}>
               <td style={td}>
-                <button type="button" className="btn btn-link" onClick={() => {setName(doc.name); setWikipediaModalShow(true);}}>
+                <button type="button" className="btn btn-link link-success" onClick={() => {setName(doc.name); setWikipediaModalShow(true);}}>
                   {doc.name}
                 </button>
               </td>

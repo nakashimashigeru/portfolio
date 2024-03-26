@@ -1,7 +1,9 @@
 "use client";
 import { useState, useEffect } from "react";
-import { CircleSpinnerOverlay } from "react-spinner-overlay";
 import { Modal } from 'react-bootstrap';
+import { CircleSpinnerOverlay } from "react-spinner-overlay";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faWikipediaW } from "@fortawesome/free-brands-svg-icons";
 
 export default function WikipediaModal(props: any) {
   const h3 = {
@@ -12,7 +14,7 @@ export default function WikipediaModal(props: any) {
     padding: "8px 16px",
   } as const;
 
-  const title = "Wikipedia page.";
+  const title = "ikipedia page.";
   const initialData: any[] = [];
   const [hasDocument, setHasDocument] = useState(false);
   const [extract, setExtract] = useState(initialData);
@@ -67,13 +69,18 @@ export default function WikipediaModal(props: any) {
         <Modal.Header closeButton style={header}>
           <Modal.Title id="contained-modal-title-vcenter">
             <h3 className="text-success" style={h3}>
+              <FontAwesomeIcon icon={faWikipediaW} />
               {title}
             </h3>
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div className="container">
-            <div dangerouslySetInnerHTML={{ __html: extract }} />
+            {extract ?
+              <div dangerouslySetInnerHTML={{ __html: extract }} />
+              :
+              <div>Does not exist in Wikipedia.</div>
+            }
           </div>
         </Modal.Body>
       </Modal>

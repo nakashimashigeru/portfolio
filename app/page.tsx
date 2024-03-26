@@ -29,11 +29,6 @@ export default function Home() {
     marginBottom: "8px",
   } as const;
 
-  const button = {
-    width: "280px",
-  } as const;
-
-  const iconStyle: React.CSSProperties = { fontSize: 18, marginRight: 8 };
   const ignore = useRef(false);
   const [hasDocument, setHasDocument] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -91,9 +86,9 @@ export default function Home() {
                 :
                 <div>
                   <LocalImage url="login.jpg" alt="藤吉 夏鈴" width={300} height={300} />
-                  <button className="btn btn-danger" onClick={doLogin} style={button} disabled={auth.currentUser !== null ? true : false}>
-                    <FontAwesomeIcon style={iconStyle} icon={faGoogle} />
-                    Google アカウントでログイン
+                  <button className="btn btn-danger" onClick={doLogin} disabled={auth.currentUser !== null ? true : false}>
+                    <FontAwesomeIcon icon={faGoogle} />
+                    oogle アカウントでログイン
                   </button>
                 </div>
               }
