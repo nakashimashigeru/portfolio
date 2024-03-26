@@ -79,6 +79,7 @@ export default function AddModal(props: any) {
         backdrop="static"
         centered
         keyboard={false}
+        scrollable
         size="lg"
       >
         <Modal.Header closeButton style={header}>

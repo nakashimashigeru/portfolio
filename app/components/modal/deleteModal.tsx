@@ -85,6 +85,7 @@ export default function DeleteModal(props: any) {
         backdrop="static"
         centered
         keyboard={false}
+        scrollable
         size="lg"
       >
         <Modal.Header closeButton style={header}>
