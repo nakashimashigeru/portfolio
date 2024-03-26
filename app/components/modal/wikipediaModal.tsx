@@ -22,7 +22,6 @@ export default function WikipediaModal(props: any) {
 
   useEffect(() => {
     if (props.name !== "") {
-      setIsLoading(true);
       if (typeof document !== "undefined") {
         setHasDocument(true);
       }
@@ -31,26 +30,23 @@ export default function WikipediaModal(props: any) {
   }, [props.name]);
 
   const wikiFetch = async (inputValue: string) => {
+    setIsLoading(true);
     if (inputValue.match(/[\u4E00-\u9FFF]/)) {
       inputValue = inputValue.replace(/\s+/g, "");
     }
     const uri = `https://ja.wikipedia.org/w/api.php?format=json&action=query&origin=*&prop=extracts&exintro&explaintext&redirects=1&titles=${inputValue}`;
     const encoded = encodeURI(uri);
-    const fetchValue = fetch(encoded, {
-      method: "GET"
-    })
-      .then((value) => {
-        return value.json();
-      })
-      .catch(() => {
-        alert("Could Not Access Wikipedia.");
-      });
-
-    const valueJson = await fetchValue;
-    for (const id in valueJson.query.pages) {
-      setExtract(valueJson.query.pages[id].extract);
+    try {
+      const response = await fetch(encoded, { method: "GET" });
+      const json = await response.json();
+      for (const id in json.query.pages) {
+        setExtract(json.query.pages[id].extract);
+      }
+    } catch (error) {
+      alert("Could Not Access Wikipedia.");
+    } finally {
+      setIsLoading(false);
     }
-    setIsLoading(false);
   };
 
   return (
