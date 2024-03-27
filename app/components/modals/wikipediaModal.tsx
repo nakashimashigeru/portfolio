@@ -65,7 +65,7 @@ export default function WikipediaModal(props: any) {
       >
         <Modal.Header closeButton style={header}>
           <Modal.Title id="contained-modal-title-vcenter">
-            <h3 className="text-success" style={h3}>
+            <h3 className="text-primary" style={h3}>
               <FontAwesomeIcon icon={faWikipediaW} />
               {title}
             </h3>

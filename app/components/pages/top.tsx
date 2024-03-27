@@ -59,7 +59,7 @@ export default function Top() {
   const title = "Top page.";
   const initialData: any[] = [];
   const ignore = useRef(false);
-  const faPenToSquareStyle: React.CSSProperties = { color: "#6c757d", cursor: "pointer", fontSize: 22, width: 65 };
+  const faPenToSquareStyle: React.CSSProperties = { color: "#198754", cursor: "pointer", fontSize: 22, width: 65 };
   const faTrashCanStyle: React.CSSProperties = { color: "#dc3545", cursor: "pointer", fontSize: 22, width: 65 };
   const faUserPlusStyle: React.CSSProperties = { color: "#212529", cursor: "pointer", fontSize: 24 };
   const [hasDocument, setHasDocument] = useState(false);
@@ -130,7 +130,7 @@ export default function Top() {
     return (
       <tr key={documentID}>
         <td style={td}>
-          <button type="button" className="btn btn-link link-success" onClick={() => {setName(data.name); setWikipediaModalShow(true);}}>
+          <button type="button" className="btn btn-link" onClick={() => {setName(data.name); setWikipediaModalShow(true);}}>
             {data.name}
           </button>
         </td>

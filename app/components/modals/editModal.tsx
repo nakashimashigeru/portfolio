@@ -118,7 +118,7 @@ export default function EditModal(props: any) {
       >
         <Modal.Header closeButton style={header}>
           <Modal.Title id="contained-modal-title-vcenter">
-            <h3 className="text-secondary" style={h3}>
+            <h3 className="text-success" style={h3}>
               {title}
             </h3>
           </Modal.Title>
@@ -137,7 +137,7 @@ export default function EditModal(props: any) {
                 </div>
               </div>
               <div className="d-flex justify-content-center" style={div_mt16}>
-                <button className="btn btn-primary" style={button_right}>
+                <button className="btn btn-success" style={button_right}>
                   Edit
                 </button>
                 <Button className="btn btn-light btn-outline-danger" onClick={props.onHide} style={button_left}>
