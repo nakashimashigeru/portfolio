@@ -51,10 +51,15 @@ export default function Top() {
     width: "100%",
   } as const;
 
+  const td = {
+    padding: 0,
+  } as const;
+
   const title = "Top page.";
   const initialData: any[] = [];
   const ignore = useRef(false);
   const iconStyle: React.CSSProperties = { color: "#212529", cursor: "pointer", fontSize: 24 };
+  const _iconStyle: React.CSSProperties = { color: "#dc3545", cursor: "pointer", fontSize: 22, width: 90 };
   const [hasDocument, setHasDocument] = useState(false);
   const [tableData, setTableData] = useState(initialData);
   const [selectData, setSelectData] = useState(initialData);
@@ -71,28 +76,15 @@ export default function Top() {
       if (typeof document !== "undefined") {
         setHasDocument(true);
       }
-      const td = { padding: 0 } as const;
       const _array: string[] = [];
       const _tableData: any[] = [];
       const _selectData: any[] = [<option key="">選択してください</option>];
-      const iconStyle: React.CSSProperties = { color: "#dc3545", cursor: "pointer", fontSize: 22, width: 90 };
       db.collection("data").get().then((snapshot) => {
         snapshot.forEach((document) => {
-          const doc = document.data();
-          _array.push(doc.name);
-          _tableData.push(
-            <tr key={document.id}>
-              <td style={td}>
-                <button type="button" className="btn btn-link link-success" onClick={() => {setName(doc.name); setWikipediaModalShow(true);}}>
-                  {doc.name}
-                </button>
-              </td>
-              <td>{doc.age}</td>
-              <td>
-                <FontAwesomeIcon style={iconStyle} icon={faTrashCan} onClick={() => {setDocumentID(document.id); setDeleteModalShow(true);}} />
-              </td>
-            </tr>
-          );
+          const data = document.data();
+          const tableData = generateTableData(document.id, data);
+          _tableData.push(tableData);
+          _array.push(data.name);
         });
         const array = [...new Set(_array)];
         for (let i = 0; i < array.length; i++) {
@@ -114,26 +106,13 @@ export default function Top() {
 
   const doAction = ((e: React.MouseEvent<HTMLButtonElement>) => {
     setIsLoading(true);
-    const td = { padding: 0 } as const;
     const _tableData: any[] = [];
-    const iconStyle: React.CSSProperties = { color: "#dc3545", cursor: "pointer", fontSize: 22, width: 90 };
     db.collection("data").where("name", "==", find)
       .get().then((snapshot) => {
         snapshot.forEach((document) => {
-          const doc = document.data();
-          _tableData.push(
-            <tr key={document.id}>
-              <td style={td}>
-                <button type="button" className="btn btn-link link-success" onClick={() => {setName(doc.name); setWikipediaModalShow(true);}}>
-                  {doc.name}
-                </button>
-              </td>
-              <td>{doc.age}</td>
-              <td>
-                <FontAwesomeIcon style={iconStyle} icon={faTrashCan} onClick={() => {setDocumentID(document.id); setDeleteModalShow(true);}} />
-              </td>
-            </tr>
-          );
+          const data = document.data();
+          const tableData = generateTableData(document.id, data);
+          _tableData.push(tableData);
         });
         setTableData(_tableData);
         setIsLoading(false);
@@ -142,6 +121,22 @@ export default function Top() {
 
   const changeFind = ((e: React.ChangeEvent<HTMLSelectElement>) => {
     setFind(e.target.value);
+  });
+
+  const generateTableData = ((documentID: string, data: firebase.firestore.DocumentData) => {
+    return (
+      <tr key={documentID}>
+        <td style={td}>
+          <button type="button" className="btn btn-link link-success" onClick={() => {setName(data.name); setWikipediaModalShow(true);}}>
+            {data.name}
+          </button>
+        </td>
+        <td>{data.age}</td>
+        <td>
+          <FontAwesomeIcon style={_iconStyle} icon={faTrashCan} onClick={() => {setDocumentID(documentID); setDeleteModalShow(true);}} />
+        </td>
+      </tr>
+    );
   });
 
   return (
