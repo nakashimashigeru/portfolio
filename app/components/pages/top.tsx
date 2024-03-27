@@ -18,7 +18,7 @@ export default function Top() {
     fontSize: "26pt",
   } as const;
 
-  const div = {
+  const div_title = {
     height: "40px",
     marginBottom: "8px",
   } as const;
@@ -37,6 +37,7 @@ export default function Top() {
     height: "calc(100vh - 235px)",
     margin: "8px auto 16px",
     overflowY: "auto",
+    textAlign: "center",
     whiteSpace: "nowrap",
   } as const;
 
@@ -154,7 +155,7 @@ export default function Top() {
       }
       <WikipediaModal name={name} show={wikipediaModalShow} onHide={() => setWikipediaModalShow(false)} />
       <div className="container">
-        <div className="d-flex align-items-center justify-content-between" style={div}>
+        <div className="d-flex align-items-center justify-content-between" style={div_title}>
           <h3 style={h3}>{title}</h3>
           <FontAwesomeIcon style={iconStyle} icon={faUserPlus} onClick={() => setAddModalShow(true)} />
         </div>
@@ -170,12 +171,12 @@ export default function Top() {
             </div>
           </div>
           <div className="table-responsive-sm table-responsive-md">
-            <table className="table table-hover table-striped text-center" style={table}>
+            <table className="table table-hover table-striped" style={table}>
               <thead style={thead}>
                 <tr>
-                  <th className="bg-dark text-white" style={th}>人名</th>
-                  <th className="bg-dark text-white">年齢</th>
-                  <th className="bg-dark text-white"></th>
+                  <th className="bg-dark text-light" style={th}>人名</th>
+                  <th className="bg-dark text-light">年齢</th>
+                  <th className="bg-dark text-light"></th>
                 </tr>
               </thead>
               <tbody>

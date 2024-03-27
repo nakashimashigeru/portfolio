@@ -97,7 +97,7 @@ export default function DeleteModal(props: any) {
         </Modal.Header>
         <Modal.Body>
           <div className="container">
-            <div className="bg-dark card text-center text-white">
+            <div className="bg-dark card text-center text-light">
               <pre className="bg-dark h5 m-2 p-2">
                 <p>
                   人名: <span className={limelight.className}>{data ? data.name : "..."}</span>

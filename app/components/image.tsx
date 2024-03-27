@@ -8,11 +8,6 @@ type Props = {
 };
 
 export default function LocalImage(props: Props) {
-  const img = {
-    display: "block",
-    margin: "0px auto 16px",
-  } as const;
-
   const url = "/" + props.url;
 
   return (
@@ -21,7 +16,6 @@ export default function LocalImage(props: Props) {
       alt={props.alt}
       width={props.width}
       height={props.height}
-      style={img}
       priority
     />
   );

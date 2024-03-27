@@ -10,6 +10,7 @@ type Props = {
 export default function Footer(props: Props) {
   const div = {
     position: "sticky",
+    textAlign: "center",
     top: "100vh",
     width: "100%",
   } as const;
@@ -38,7 +39,7 @@ export default function Footer(props: Props) {
   }, []);
 
   return (
-    <div className="h6 my-4 text-center" style={div}>
+    <div className="h6 my-4" style={div}>
       {props.isLoading ?
         <div>
           {footer}

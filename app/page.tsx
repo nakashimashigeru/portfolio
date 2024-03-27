@@ -2,8 +2,6 @@
 import { useRef, useState, useEffect } from "react";
 import { CookiesProvider } from "react-cookie";
 import { CircleSpinnerOverlay } from "react-spinner-overlay";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { signInWithRedirect } from 'firebase/auth';
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
@@ -21,12 +19,21 @@ export default function Home() {
 
   const h5 = {
     fontSize: "18pt",
+  } as const;
+
+  const div_title = {
+    height: "40px",
+    marginBottom: "8px",
     textAlign: "center",
   } as const;
 
-  const div = {
-    height: "40px",
-    marginBottom: "8px",
+  const div_contents = {
+    padding: "16px 0px",
+    textAlign: "center",
+  } as const;
+
+  const div_mt16 = {
+    marginTop: "16px",
   } as const;
 
   const ignore = useRef(false);
@@ -46,7 +53,7 @@ export default function Home() {
           setIsLoading(false);
           setHeaderTitle("RSTC");
           setTitle("Login page.");
-          setMessage("Welcome to next.js!");
+          setMessage("Welcome!");
         } catch (error) {
           alert(error);
         }
@@ -74,22 +81,23 @@ export default function Home() {
           <Top />
           :
           <div className="container">
-            <div className="text-center" style={div}>
+            <div style={div_title}>
               <h3 style={h3}>{title}</h3>
             </div>
-            <div className="bg-dark card p-3 text-center">
-              <h5 className="mb-3 text-white" style={h5}>{message}</h5>
+            <div className="bg-dark" style={div_contents}>
+              <h5 className="mb-3 text-light" style={h5}>{message}</h5>
               {isLoading ?
                 <div>
-                  <LocalImage url="loading.jpg" alt="小林 由依" width={300} height={300} />
+                  <LocalImage url="loading.jpg" alt="小林 由依" width={280} height={280} />
                 </div>
                 :
                 <div>
-                  <LocalImage url="login.jpg" alt="藤吉 夏鈴" width={300} height={300} />
-                  <button className="btn btn-danger" onClick={doLogin} disabled={auth.currentUser !== null ? true : false}>
-                    <FontAwesomeIcon icon={faGoogle} />
-                    oogle アカウントでログイン
-                  </button>
+                  <LocalImage url="login.jpg" alt="藤吉 夏鈴" width={280} height={280} />
+                  <div style={div_mt16}>
+                    <button className="btn btn-danger" onClick={doLogin} disabled={auth.currentUser !== null ? true : false}>
+                      Googleアカウントでログイン
+                    </button>
+                  </div>
                 </div>
               }
             </div>
