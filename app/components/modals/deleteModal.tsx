@@ -49,18 +49,28 @@ export default function DeleteModal(props: any) {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (props.id !== "") {
-      setIsLoading(true);
-      if (typeof document !== "undefined") {
-        setHasDocument(true);
-      }
-      db.collection("data").doc(props.id).get().then(ob => {
+    if (typeof document !== "undefined") {
+      setHasDocument(true);
+    }
+    apiFetch(props.id);
+  }, [props.id, props.onHide]);
+
+  const apiFetch = async (id: string) => {
+    setIsLoading(true);
+    const result = await db.collection("data").doc(id).get()
+      .then(ob => {
         const profile = ob.data() as Profile;
         setData(profile);
+      })
+      .catch(error => {
+        alert(error);
+      })
+      .finally(() => {
         setIsLoading(false);
       });
-    }
-  }, [props.id]);
+
+    return result;
+  };
 
   const doDelete = (async (e: React.MouseEvent<HTMLButtonElement>) => {
     const result = await db.collection("data").doc(props.id).delete()

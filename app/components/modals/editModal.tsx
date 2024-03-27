@@ -1,4 +1,6 @@
 "use client";
+import { useState, useEffect } from "react";
+import { CircleSpinnerOverlay } from "react-spinner-overlay";
 import { Button, Modal } from 'react-bootstrap';
 import { useForm } from "react-hook-form";
 import "firebase/compat/firestore";
@@ -12,7 +14,7 @@ type Profile = {
 
 const db = firebase.firestore();
 
-export default function AddModal(props: any) {
+export default function EditModal(props: any) {
   const h3 = {
     margin: "0px",
   } as const;
@@ -46,21 +48,50 @@ export default function AddModal(props: any) {
     width: "160px",
   } as const;
 
-  const title = "Add page.";
-
+  const title = "Edit page.";
+  const [hasDocument, setHasDocument] = useState(false);
+  const [name, setName] = useState("");
+  const [age, setAge] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
   const {
     register,
     handleSubmit,
     formState: {errors}
-  } = useForm({defaultValues: {name: "", mail: "", age: 0}});
+  } = useForm({defaultValues: {name: "", age: 0}});
 
-  const doSubmit = (async (_ob: Profile) => {
+  useEffect(() => {
+    if (typeof document !== "undefined") {
+      setHasDocument(true);
+    }
+    apiFetch(props.id);
+  }, [props.id, props.onHide]);
+
+  const apiFetch = async (id: string) => {
+    setIsLoading(true);
+    const result = await db.collection("data").doc(id).get()
+      .then(ob => {
+        const profile = ob.data() as Profile;
+        setName(profile.name);
+        setAge(profile.age);
+        setIsLoading(false);
+      })
+      .catch(error => {
+        alert(error);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+
+    return result;
+  };
+
+  const doSubmit = (async () => {
     const ob = {
-      name: _ob.name,
-      age: _ob.age,
+      name: name,
+      age: age,
     };
 
-    const result = await db.collection("data").add(ob)
+    const result = await db.collection("data").doc(props.id).update(ob)
       .then(ref => {
         location.reload();
       })
@@ -73,6 +104,9 @@ export default function AddModal(props: any) {
 
   return (
     <div>
+      {hasDocument && isLoading &&
+        <CircleSpinnerOverlay overlayColor="rgba(0, 0, 0, 0.2)" />
+      }
       <Modal
         {...props}
         aria-labelledby="contained-modal-title-vcenter"
@@ -84,7 +118,7 @@ export default function AddModal(props: any) {
       >
         <Modal.Header closeButton style={header}>
           <Modal.Title id="contained-modal-title-vcenter">
-            <h3 className="text-dark" style={h3}>
+            <h3 className="text-secondary" style={h3}>
               {title}
             </h3>
           </Modal.Title>
@@ -95,16 +129,16 @@ export default function AddModal(props: any) {
               <div className="bg-dark card p-3 text-center">
                 <div className="form-group d-flex flex-column flex-md-row align-items-md-center" style={div_mb16}>
                   <label style={label}>人名</label>
-                  <input className="form-control" type="text" placeholder="Input Name" required {...register("name", { required: true })} />
+                  <input className="form-control" type="text" value={name} placeholder="Input Name" autoFocus required {...register("name", { required: true })} onChange={e => setName(e.target.value)} />
                 </div>
                 <div className="form-group d-flex flex-column flex-md-row align-items-md-center">
                   <label style={label}>年齢</label>
-                  <input className="form-control" type="number" required {...register("age", { required: true })} />
+                  <input className="form-control" type="number" value={age} required {...register("age", { required: true })} onChange={e => setAge(Number(e.target.value))} />
                 </div>
               </div>
               <div className="d-flex justify-content-center" style={div_mt16}>
                 <button className="btn btn-primary" style={button_right}>
-                  Add
+                  Edit
                 </button>
                 <Button className="btn btn-light btn-outline-danger" onClick={props.onHide} style={button_left}>
                   Cancel

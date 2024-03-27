@@ -2,13 +2,14 @@
 import { useRef, useState, useEffect } from "react";
 import { CircleSpinnerOverlay } from "react-spinner-overlay";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrashCan, faUserPlus } from "@fortawesome/free-solid-svg-icons";
+import { faPenToSquare, faTrashCan, faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
 import "../firebase";
-import AddModal from "../modal/addModal";
-import DeleteModal from "../modal/deleteModal";
-import WikipediaModal from "../modal/wikipediaModal";
+import AddModal from "../modals/addModal";
+import DeleteModal from "../modals/deleteModal";
+import EditModal from "../modals/editModal";
+import WikipediaModal from "../modals/wikipediaModal";
 
 const db = firebase.firestore();
 
@@ -58,8 +59,9 @@ export default function Top() {
   const title = "Top page.";
   const initialData: any[] = [];
   const ignore = useRef(false);
-  const iconStyle: React.CSSProperties = { color: "#212529", cursor: "pointer", fontSize: 24 };
-  const _iconStyle: React.CSSProperties = { color: "#dc3545", cursor: "pointer", fontSize: 22, width: 90 };
+  const faPenToSquareStyle: React.CSSProperties = { color: "#6c757d", cursor: "pointer", fontSize: 22, width: 65 };
+  const faTrashCanStyle: React.CSSProperties = { color: "#dc3545", cursor: "pointer", fontSize: 22, width: 65 };
+  const faUserPlusStyle: React.CSSProperties = { color: "#212529", cursor: "pointer", fontSize: 24 };
   const [hasDocument, setHasDocument] = useState(false);
   const [tableData, setTableData] = useState(initialData);
   const [selectData, setSelectData] = useState(initialData);
@@ -69,6 +71,7 @@ export default function Top() {
   const [name, setName] = useState("");
   const [addModalShow, setAddModalShow] = useState(false);
   const [deleteModalShow, setDeleteModalShow] = useState(false);
+  const [editModalShow, setEditModalShow] = useState(false);
   const [wikipediaModalShow, setWikipediaModalShow] = useState(false);
 
   useEffect(() => {
@@ -133,7 +136,8 @@ export default function Top() {
         </td>
         <td>{data.age}</td>
         <td>
-          <FontAwesomeIcon style={_iconStyle} icon={faTrashCan} onClick={() => {setDocumentID(documentID); setDeleteModalShow(true);}} />
+          <FontAwesomeIcon style={faPenToSquareStyle} icon={faPenToSquare} onClick={() => {setDocumentID(documentID); setEditModalShow(true);}} />
+          <FontAwesomeIcon style={faTrashCanStyle} icon={faTrashCan} onClick={() => {setDocumentID(documentID); setDeleteModalShow(true);}} />
         </td>
       </tr>
     );
@@ -148,11 +152,14 @@ export default function Top() {
       {documentID !== "" &&
         <DeleteModal id={documentID} show={deleteModalShow} onHide={() => setDeleteModalShow(false)} />
       }
+      {documentID !== "" &&
+        <EditModal id={documentID} show={editModalShow} onHide={() => setEditModalShow(false)} />
+      }
       <WikipediaModal name={name} show={wikipediaModalShow} onHide={() => setWikipediaModalShow(false)} />
       <div className="container">
         <div className="d-flex align-items-center justify-content-between" style={div_title}>
           <h3 style={h3}>{title}</h3>
-          <FontAwesomeIcon style={iconStyle} icon={faUserPlus} onClick={() => setAddModalShow(true)} />
+          <FontAwesomeIcon style={faUserPlusStyle} icon={faUserPlus} onClick={() => setAddModalShow(true)} />
         </div>
         <div>
           <div className="text-left">
