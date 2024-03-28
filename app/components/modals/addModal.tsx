@@ -7,7 +7,7 @@ import "../firebase";
 
 type Profile = {
   name: string;
-  age: number;
+  age: string;
 };
 
 const db = firebase.firestore();
@@ -51,7 +51,7 @@ export default function AddModal(props: any) {
     register,
     handleSubmit,
     formState: {errors}
-  } = useForm({defaultValues: {name: "", age: 0}});
+  } = useForm({defaultValues: {name: "", age: ""}});
 
   const doSubmit = (async (_ob: Profile) => {
     const ob = {
@@ -98,7 +98,7 @@ export default function AddModal(props: any) {
                 </div>
                 <div className="form-group d-flex flex-column flex-md-row align-items-md-center">
                   <label style={label}>年齢</label>
-                  <input className="form-control" type="number" required {...register("age", { required: true })} />
+                  <input className="form-control" type="text" inputMode="numeric" pattern="^[0-9]+$" placeholder="0" required {...register("age", { required: true })} />
                 </div>
               </div>
               <div className="d-flex justify-content-center" style={div_mt16}>

@@ -9,7 +9,7 @@ import "../firebase";
 
 type Profile = {
   name: string;
-  age: number;
+  age: string;
 };
 
 const db = firebase.firestore();
@@ -51,24 +51,24 @@ export default function EditModal(props: any) {
   const title = "Edit";
   const [hasDocument, setHasDocument] = useState(false);
   const [name, setName] = useState("");
-  const [age, setAge] = useState(0);
+  const [age, setAge] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const {
     register,
     handleSubmit,
     formState: {errors}
-  } = useForm({defaultValues: {name: "", age: 0}});
+  } = useForm({defaultValues: {name: "", age: ""}});
 
   useEffect(() => {
     if (props.show) {
       if (typeof document !== "undefined") {
         setHasDocument(true);
       }
-      apiFetch(props.id);
+      fetchProfile(props.id);
     }
   }, [props.id, props.show]);
 
-  const apiFetch = async (id: string) => {
+  const fetchProfile = async (id: string) => {
     setIsLoading(true);
     const result = await db.collection("data").doc(id).get()
       .then(ob => {
@@ -131,11 +131,11 @@ export default function EditModal(props: any) {
               <div className="bg-dark card p-3 text-center">
                 <div className="form-group d-flex flex-column flex-md-row align-items-md-center" style={div_mb16}>
                   <label style={label}>人名</label>
-                  <input className="form-control" type="text" value={name} placeholder="Input Name" autoFocus required {...register("name", { required: true })} onChange={e => setName(e.target.value)} />
+                  <input className="form-control" type="text" placeholder="Input Name" autoFocus required value={name} {...register("name", { required: true })} onChange={e => setName(e.target.value)} />
                 </div>
                 <div className="form-group d-flex flex-column flex-md-row align-items-md-center">
                   <label style={label}>年齢</label>
-                  <input className="form-control" type="number" value={age} required {...register("age", { required: true })} onChange={e => setAge(Number(e.target.value))} />
+                  <input className="form-control" type="text" inputMode="numeric" pattern="^[0-9]+$" placeholder="0" required value={age} {...register("age", { required: true })} onChange={e => setAge(e.target.value)} />
                 </div>
               </div>
               <div className="d-flex justify-content-center" style={div_mt16}>

@@ -53,11 +53,11 @@ export default function DeleteModal(props: any) {
       if (typeof document !== "undefined") {
         setHasDocument(true);
       }
-      apiFetch(props.id);
+      fetchProfile(props.id);
     }
   }, [props.id, props.show]);
 
-  const apiFetch = async (id: string) => {
+  const fetchProfile = async (id: string) => {
     setIsLoading(true);
     const result = await db.collection("data").doc(id).get()
       .then(ob => {
