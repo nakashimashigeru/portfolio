@@ -56,7 +56,7 @@ export default function Top() {
     padding: 0,
   } as const;
 
-  const title = "Top page.";
+  const title = "Top";
   const initialData: any[] = [];
   const ignore = useRef(false);
   const faPenToSquareStyle: React.CSSProperties = { color: "#198754", cursor: "pointer", fontSize: 22, width: 65 };

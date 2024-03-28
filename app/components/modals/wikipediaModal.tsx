@@ -14,7 +14,7 @@ export default function WikipediaModal(props: any) {
     padding: "8px 16px",
   } as const;
 
-  const title = "ikipedia page.";
+  const title = "ikipedia";
   const initialData: any[] = [];
   const [hasDocument, setHasDocument] = useState(false);
   const [extract, setExtract] = useState(initialData);

@@ -48,7 +48,7 @@ export default function EditModal(props: any) {
     width: "160px",
   } as const;
 
-  const title = "Edit page.";
+  const title = "Edit";
   const [hasDocument, setHasDocument] = useState(false);
   const [name, setName] = useState("");
   const [age, setAge] = useState(0);
@@ -60,11 +60,13 @@ export default function EditModal(props: any) {
   } = useForm({defaultValues: {name: "", age: 0}});
 
   useEffect(() => {
-    if (typeof document !== "undefined") {
-      setHasDocument(true);
+    if (props.show) {
+      if (typeof document !== "undefined") {
+        setHasDocument(true);
+      }
+      apiFetch(props.id);
     }
-    apiFetch(props.id);
-  }, [props.id, props.onHide]);
+  }, [props.id, props.show]);
 
   const apiFetch = async (id: string) => {
     setIsLoading(true);

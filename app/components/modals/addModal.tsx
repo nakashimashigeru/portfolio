@@ -46,7 +46,7 @@ export default function AddModal(props: any) {
     width: "160px",
   } as const;
 
-  const title = "Add page.";
+  const title = "Add";
   const {
     register,
     handleSubmit,

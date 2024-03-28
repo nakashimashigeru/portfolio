@@ -43,17 +43,19 @@ export default function DeleteModal(props: any) {
     width: "160px",
   } as const;
 
-  const title = "Delete page.";
+  const title = "Delete";
   const [hasDocument, setHasDocument] = useState(false);
   const [data, setData] = useState({} as Profile);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (typeof document !== "undefined") {
-      setHasDocument(true);
+    if (props.show) {
+      if (typeof document !== "undefined") {
+        setHasDocument(true);
+      }
+      apiFetch(props.id);
     }
-    apiFetch(props.id);
-  }, [props.id, props.onHide]);
+  }, [props.id, props.show]);
 
   const apiFetch = async (id: string) => {
     setIsLoading(true);

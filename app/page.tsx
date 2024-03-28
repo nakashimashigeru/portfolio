@@ -52,7 +52,7 @@ export default function Home() {
         try {
           setIsLoading(false);
           setHeaderTitle("RSTC");
-          setTitle("Login page.");
+          setTitle("Login");
           setMessage("Welcome!");
         } catch (error) {
           alert(error);
