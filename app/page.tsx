@@ -5,7 +5,7 @@ import { CircleSpinnerOverlay } from "react-spinner-overlay";
 import { signInWithRedirect } from 'firebase/auth';
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
-import { auth, provider } from "./components/firebase";
+import { auth, provider } from "./lib/firebase/config";
 import Footer from "./components/footer";
 import Header from "./components/header";
 import LocalImage from "./components/image";

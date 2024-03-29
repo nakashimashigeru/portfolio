@@ -3,7 +3,7 @@ import { Button, Modal } from 'react-bootstrap';
 import { useForm } from "react-hook-form";
 import "firebase/compat/firestore";
 import firebase from "firebase/compat/app";
-import "../firebase";
+import "../../lib/firebase/config";
 
 type Profile = {
   name: string;

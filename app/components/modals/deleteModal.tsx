@@ -5,7 +5,7 @@ import { CircleSpinnerOverlay } from "react-spinner-overlay";
 import { Button, Modal } from 'react-bootstrap';
 import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
-import "../firebase";
+import "../../lib/firebase/config";
 
 const limelight = Limelight({ weight: "400", subsets: ["latin"] });
 
@@ -53,11 +53,11 @@ export default function DeleteModal(props: any) {
       if (typeof document !== "undefined") {
         setHasDocument(true);
       }
-      fetchProfile(props.id);
+      profileFetch(props.id);
     }
   }, [props.id, props.show]);
 
-  const fetchProfile = async (id: string) => {
+  const profileFetch = async (id: string) => {
     setIsLoading(true);
     const result = await db.collection("data").doc(id).get()
       .then(ob => {

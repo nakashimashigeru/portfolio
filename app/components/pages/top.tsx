@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare, faTrashCan, faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
-import "../firebase";
+import "../../lib/firebase/config";
 import AddModal from "../modals/addModal";
 import DeleteModal from "../modals/deleteModal";
 import EditModal from "../modals/editModal";
