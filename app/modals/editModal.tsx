@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { CircleSpinnerOverlay } from "react-spinner-overlay";
-import { Button, Modal } from 'react-bootstrap';
+import { Button, Modal } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import "firebase/compat/firestore";
 import firebase from "firebase/compat/app";

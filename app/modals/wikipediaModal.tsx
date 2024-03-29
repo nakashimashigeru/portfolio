@@ -1,9 +1,10 @@
 "use client";
 import { useState, useEffect } from "react";
-import { Modal } from 'react-bootstrap';
+import { Modal } from "react-bootstrap";
 import { CircleSpinnerOverlay } from "react-spinner-overlay";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faWikipediaW } from "@fortawesome/free-brands-svg-icons";
+import { mediaWiki } from "../constants/mediaWiki";
 
 export default function WikipediaModal(props: any) {
   const h3 = {
@@ -25,19 +26,19 @@ export default function WikipediaModal(props: any) {
       if (typeof document !== "undefined") {
         setHasDocument(true);
       }
-      wikiFetch(props.name);
+      mediaWikiFetch(props.name);
     }
   }, [props.name]);
 
-  const wikiFetch = async (inputValue: string) => {
+  const mediaWikiFetch = async (inputValue: string) => {
     setIsLoading(true);
     if (inputValue.match(/[\u4E00-\u9FFF]/)) {
       inputValue = inputValue.replace(/\s+/g, "");
     }
-    const uri = `https://ja.wikipedia.org/w/api.php?format=json&action=query&origin=*&prop=extracts&exintro&explaintext&redirects=1&titles=${inputValue}`;
-    const encoded = encodeURI(uri);
+    const url = mediaWiki.url + inputValue;
+    const encodedURL = encodeURI(url);
     try {
-      const response = await fetch(encoded, { method: "GET" });
+      const response = await fetch(encodedURL, { method: "GET" });
       const json = await response.json();
       for (const id in json.query.pages) {
         setExtract(json.query.pages[id].extract);

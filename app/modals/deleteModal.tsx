@@ -2,7 +2,7 @@
 import { Limelight } from "next/font/google";
 import { useState, useEffect } from "react";
 import { CircleSpinnerOverlay } from "react-spinner-overlay";
-import { Button, Modal } from 'react-bootstrap';
+import { Button, Modal } from "react-bootstrap";
 import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
 import "../libs/firebase/config";
