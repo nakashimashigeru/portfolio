@@ -5,7 +5,7 @@ import { CircleSpinnerOverlay } from "react-spinner-overlay";
 import { Button, Modal } from 'react-bootstrap';
 import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
-import "../../lib/firebase/config";
+import "../libs/firebase/config";
 
 const limelight = Limelight({ weight: "400", subsets: ["latin"] });
 

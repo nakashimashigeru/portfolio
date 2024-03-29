@@ -5,11 +5,11 @@ import { CircleSpinnerOverlay } from "react-spinner-overlay";
 import { signInWithRedirect } from 'firebase/auth';
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
-import { auth, provider } from "./lib/firebase/config";
+import { auth, provider } from "./libs/firebase/config";
 import Footer from "./components/footer";
 import Header from "./components/header";
 import LocalImage from "./components/image";
-import Top from "./components/pages/top";
+import Top from "./components/top";
 
 export default function Home() {
   const h3 = {
