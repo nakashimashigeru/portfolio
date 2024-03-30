@@ -1,13 +1,9 @@
 "use client";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faReact } from "@fortawesome/free-brands-svg-icons";
+import { HeaderProps } from "../types/props";
 
-type Props = {
-  title: string;
-  isLoading: boolean;
-};
-
-export default function Header(props: Props) {
+export default function Header(props: HeaderProps) {
   const h1 = {
     cursor: "pointer",
     fontSize: "18pt",

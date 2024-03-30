@@ -4,11 +4,7 @@ import { useForm } from "react-hook-form";
 import "firebase/compat/firestore";
 import firebase from "firebase/compat/app";
 import "../libs/firebase/config";
-
-type Profile = {
-  name: string;
-  age: string;
-};
+import { Profile } from "../types/profile";
 
 const db = firebase.firestore();
 

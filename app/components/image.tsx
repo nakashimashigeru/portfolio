@@ -1,13 +1,7 @@
 import Image from "next/image";
+import { ImageProps } from "../types/props";
 
-type Props = {
-  url: string;
-  alt: string;
-  width: number;
-  height: number;
-};
-
-export default function LocalImage(props: Props) {
+export default function LocalImage(props: ImageProps) {
   const url = "/" + props.url;
 
   return (

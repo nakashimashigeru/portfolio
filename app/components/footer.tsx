@@ -2,12 +2,9 @@
 import { useRef, useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCopyright } from "@fortawesome/free-solid-svg-icons";
+import { FooterProps } from "../types/props";
 
-type Props = {
-  isLoading: boolean;
-};
-
-export default function Footer(props: Props) {
+export default function Footer(props: FooterProps) {
   const div = {
     position: "sticky",
     textAlign: "center",

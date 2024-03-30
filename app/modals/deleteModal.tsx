@@ -6,15 +6,10 @@ import { Button, Modal } from "react-bootstrap";
 import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
 import "../libs/firebase/config";
-
-const limelight = Limelight({ weight: "400", subsets: ["latin"] });
-
-type Profile = {
-  name: string;
-  age: number;
-};
+import { Profile } from "../types/profile";
 
 const db = firebase.firestore();
+const limelight = Limelight({ weight: "400", subsets: ["latin"] });
 
 export default function DeleteModal(props: any) {
   const h3 = {
