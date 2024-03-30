@@ -19,6 +19,7 @@ export default function DeleteModal(props: any) {
   const [hasDocument, setHasDocument] = useState(false);
   const [data, setData] = useState({} as Profile);
   const [isLoading, setIsLoading] = useState(true);
+  type Response = "success" | "failure";
 
   useEffect(() => {
     if (props.show) {
@@ -47,21 +48,21 @@ export default function DeleteModal(props: any) {
   };
 
   const doDelete = (async (e: React.MouseEvent<HTMLButtonElement>) => {
-    const result = await db.collection("data").doc(props.id).delete()
-      .then(ref => {
-        handleDelete();
+    let res: Response = "success";
+    await db.collection("data").doc(props.id).delete()
+      .then(() => {
+        handleDelete(res);
       })
-      .catch(error => {
-        alert(error);
+      .catch(() => {
+        res = "failure";
+        handleDelete(res);
       });
-
-    return result;
   });
 
   return (
     <div>
       {hasDocument && isLoading &&
-        <CircleSpinnerOverlay overlayColor="rgba(0, 0, 0, 0.2)" />
+        <CircleSpinnerOverlay overlayColor="rgba(0,0,0,0.2)" />
       }
       <Modal
         {...others}

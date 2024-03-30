@@ -1,5 +1,6 @@
 "use client";
 import { useRef, useState, useEffect } from "react";
+import toast, { Toaster } from "react-hot-toast";
 import { CircleSpinnerOverlay } from "react-spinner-overlay";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare, faTrashCan, faUserPlus } from "@fortawesome/free-solid-svg-icons";
@@ -70,6 +71,7 @@ export default function Top() {
   const [deleteModalShow, setDeleteModalShow] = useState(false);
   const [editModalShow, setEditModalShow] = useState(false);
   const [wikipediaModalShow, setWikipediaModalShow] = useState(false);
+  type Response = "success" | "failure";
 
   useEffect(() => {
     if (!ignore.current) {
@@ -107,10 +109,33 @@ export default function Top() {
     setCurrentSelected("");
   };
 
-  const handleDelete = () => {
+  const handleDelete = (res: Response) => {
     setDeleteModalShow(false);
     initialize();
     setCurrentSelected("");
+    if (res === "success") {
+      toast.success("Successfully Deleted",
+        {
+          duration: 4000,
+          style: {
+            background: "rgb(33,37,41,0.8)",
+            color: "#f8f9fa",
+            padding: "16px",
+          },
+        }
+      );
+    } else {
+      toast.error("Could not Delete",
+        {
+          duration: 4000,
+          style: {
+            background: "rgb(33,37,41,0.8)",
+            color: "#f8f9fa",
+            padding: "16px",
+          },
+        }
+      );
+    }
   };
 
   const handleEdit = () => {
@@ -167,7 +192,7 @@ export default function Top() {
   return (
     <div>
       {hasDocument && isLoading &&
-        <CircleSpinnerOverlay overlayColor="rgba(0, 0, 0, 0.2)" />
+        <CircleSpinnerOverlay overlayColor="rgba(0,0,0,0.2)" />
       }
       <AddModal show={addModalShow} onHide={() => setAddModalShow(false)} handleAdd={handleAdd} />
       {documentID !== "" &&
@@ -177,6 +202,7 @@ export default function Top() {
         <EditModal id={documentID} show={editModalShow} onHide={() => setEditModalShow(false)} handleEdit={handleEdit} />
       }
       <WikipediaModal name={name} show={wikipediaModalShow} onHide={() => setWikipediaModalShow(false)} />
+      <Toaster position="bottom-center" reverseOrder={false} />
       <div className="container">
         <div className="d-flex align-items-center justify-content-between" style={div_title}>
           <h3 style={h3}>{title}</h3>
