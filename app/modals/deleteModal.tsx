@@ -15,6 +15,7 @@ const limelight = Limelight({ weight: "400", subsets: ["latin"] });
 
 export default function DeleteModal(props: any) {
   const title = "Delete";
+  const {handleDelete, ...others} = props;
   const [hasDocument, setHasDocument] = useState(false);
   const [data, setData] = useState({} as Profile);
   const [isLoading, setIsLoading] = useState(true);
@@ -48,7 +49,7 @@ export default function DeleteModal(props: any) {
   const doDelete = (async (e: React.MouseEvent<HTMLButtonElement>) => {
     const result = await db.collection("data").doc(props.id).delete()
       .then(ref => {
-        location.reload();
+        handleDelete();
       })
       .catch(error => {
         alert(error);
@@ -63,7 +64,7 @@ export default function DeleteModal(props: any) {
         <CircleSpinnerOverlay overlayColor="rgba(0, 0, 0, 0.2)" />
       }
       <Modal
-        {...props}
+        {...others}
         aria-labelledby="contained-modal-title-vcenter"
         backdrop="static"
         centered

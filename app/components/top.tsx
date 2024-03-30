@@ -63,6 +63,7 @@ export default function Top() {
   const [selectData, setSelectData] = useState(initialData);
   const [isLoading, setIsLoading] = useState(true);
   const [find, setFind] = useState("");
+  const [currentSelected, setCurrentSelected] = useState("");
   const [documentID, setDocumentID] = useState("");
   const [name, setName] = useState("");
   const [addModalShow, setAddModalShow] = useState(false);
@@ -72,35 +73,12 @@ export default function Top() {
 
   useEffect(() => {
     if (!ignore.current) {
-      if (typeof document !== "undefined") {
-        setHasDocument(true);
-      }
-      const _array: string[] = [];
-      const _tableData: any[] = [];
-      const _selectData: any[] = [<option key="">選択してください</option>];
-      db.collection("data").get().then((snapshot) => {
-        snapshot.forEach((document) => {
-          const data = document.data();
-          const tableData = generateTableData(document.id, data);
-          _tableData.push(tableData);
-          _array.push(data.name);
-        });
-        const array = [...new Set(_array)];
-        for (let i = 0; i < array.length; i++) {
-          _selectData.push(
-            <option key={i}>
-              {array[i]}
-            </option>
-          );
-        }
-        setTableData(_tableData);
-        setSelectData(_selectData);
-        setIsLoading(false);
-      });
+      initialize();
     }
     return () => {
       ignore.current = true;
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const doAction = ((e: React.MouseEvent<HTMLButtonElement>) => {
@@ -120,7 +98,42 @@ export default function Top() {
 
   const changeFind = ((e: React.ChangeEvent<HTMLSelectElement>) => {
     setFind(e.target.value);
+    setCurrentSelected(e.target.value);
   });
+
+  const handleDelete = () => {
+    setDeleteModalShow(false);
+    initialize();
+    setCurrentSelected("");
+  };
+
+  const initialize = () => {
+    if (typeof document !== "undefined") {
+      setHasDocument(true);
+    }
+    const _array: string[] = [];
+    const _tableData: any[] = [];
+    const _selectData: any[] = [<option key="">選択してください</option>];
+    db.collection("data").get().then((snapshot) => {
+      snapshot.forEach((document) => {
+        const data = document.data();
+        const tableData = generateTableData(document.id, data);
+        _tableData.push(tableData);
+        _array.push(data.name);
+      });
+      const array = [...new Set(_array)];
+      for (let i = 0; i < array.length; i++) {
+        _selectData.push(
+          <option key={array[i]}>
+            {array[i]}
+          </option>
+        );
+      }
+      setTableData(_tableData);
+      setSelectData(_selectData);
+      setIsLoading(false);
+    });
+  };
 
   const generateTableData = ((documentID: string, data: firebase.firestore.DocumentData) => {
     return (
@@ -146,7 +159,7 @@ export default function Top() {
       }
       <AddModal show={addModalShow} onHide={() => setAddModalShow(false)} />
       {documentID !== "" &&
-        <DeleteModal id={documentID} show={deleteModalShow} onHide={() => setDeleteModalShow(false)} />
+        <DeleteModal id={documentID} show={deleteModalShow} onHide={() => setDeleteModalShow(false)} handleDelete={handleDelete} />
       }
       {documentID !== "" &&
         <EditModal id={documentID} show={editModalShow} onHide={() => setEditModalShow(false)} />
@@ -160,7 +173,7 @@ export default function Top() {
         <div>
           <div className="text-left">
             <div className="form-group d-flex align-items-center justify-content-between" style={commonStyle.mb_16}>
-              <select className="form-select bg-light" onChange={changeFind}>
+              <select className="form-select bg-light" onChange={changeFind} value={currentSelected}>
                 {selectData}
               </select>
               <button className="btn btn-primary" onClick={doAction} style={button_left}>
