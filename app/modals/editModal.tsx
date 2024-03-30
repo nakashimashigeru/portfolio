@@ -14,6 +14,7 @@ const db = firebase.firestore();
 
 export default function EditModal(props: any) {
   const title = "Edit";
+  const {handleEdit, ...others} = props;
   const [hasDocument, setHasDocument] = useState(false);
   const [name, setName] = useState("");
   const [age, setAge] = useState("");
@@ -60,7 +61,7 @@ export default function EditModal(props: any) {
 
     const result = await db.collection("data").doc(props.id).update(ob)
       .then(ref => {
-        location.reload();
+        handleEdit();
       })
       .catch(error => {
         alert(error);
@@ -75,7 +76,7 @@ export default function EditModal(props: any) {
         <CircleSpinnerOverlay overlayColor="rgba(0, 0, 0, 0.2)" />
       }
       <Modal
-        {...props}
+        {...others}
         aria-labelledby="contained-modal-title-vcenter"
         backdrop="static"
         centered

@@ -113,6 +113,12 @@ export default function Top() {
     setCurrentSelected("");
   };
 
+  const handleEdit = () => {
+    setEditModalShow(false);
+    initialize();
+    setCurrentSelected("");
+  };
+
   const initialize = () => {
     if (typeof document !== "undefined") {
       setHasDocument(true);
@@ -168,7 +174,7 @@ export default function Top() {
         <DeleteModal id={documentID} show={deleteModalShow} onHide={() => setDeleteModalShow(false)} handleDelete={handleDelete} />
       }
       {documentID !== "" &&
-        <EditModal id={documentID} show={editModalShow} onHide={() => setEditModalShow(false)} />
+        <EditModal id={documentID} show={editModalShow} onHide={() => setEditModalShow(false)} handleEdit={handleEdit} />
       }
       <WikipediaModal name={name} show={wikipediaModalShow} onHide={() => setWikipediaModalShow(false)} />
       <div className="container">
