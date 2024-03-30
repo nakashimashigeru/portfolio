@@ -6,38 +6,13 @@ import { Button, Modal } from "react-bootstrap";
 import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
 import "../libs/firebase/config";
+import { style } from "../constants/modalStyle";
 import { Profile } from "../types/profile";
 
 const db = firebase.firestore();
 const limelight = Limelight({ weight: "400", subsets: ["latin"] });
 
 export default function DeleteModal(props: any) {
-  const h3 = {
-    margin: "0px",
-  } as const;
-
-  const header = {
-    padding: "8px 16px",
-  } as const;
-
-  const div_mt16 = {
-    marginTop: "16px",
-  } as const;
-
-  const p_mb0 = {
-    marginBottom: "0px",
-  } as const;
-
-  const button_left = {
-    marginLeft: "8px",
-    width: "160px",
-  } as const;
-
-  const button_right = {
-    marginRight: "8px",
-    width: "160px",
-  } as const;
-
   const title = "Delete";
   const [hasDocument, setHasDocument] = useState(false);
   const [data, setData] = useState({} as Profile);
@@ -95,9 +70,9 @@ export default function DeleteModal(props: any) {
         scrollable
         size="lg"
       >
-        <Modal.Header closeButton style={header}>
+        <Modal.Header closeButton style={style.header}>
           <Modal.Title id="contained-modal-title-vcenter">
-            <h3 className="text-danger" style={h3}>
+            <h3 className="text-danger" style={style.h3}>
               {title}
             </h3>
           </Modal.Title>
@@ -109,16 +84,16 @@ export default function DeleteModal(props: any) {
                 <p>
                   人名: <span className={limelight.className}>{data ? data.name : "..."}</span>
                 </p>
-                <p style={p_mb0}>
+                <p style={style.p_mb0}>
                   年齢: <span className={limelight.className}>{data ? data.age : "..."}</span>
                 </p>
               </pre>
             </div>
-            <div className="d-flex justify-content-center" style={div_mt16}>
-              <button className="btn btn-danger" onClick={doDelete} style={button_right} disabled={isLoading}>
+            <div className="d-flex justify-content-center" style={style.div_mt16}>
+              <button className="btn btn-danger" onClick={doDelete} style={style.button_right} disabled={isLoading}>
                 Delete
               </button>
-              <Button className="btn btn-light btn-outline-danger" onClick={props.onHide} style={button_left} disabled={isLoading}>
+              <Button className="btn btn-light btn-outline-danger" onClick={props.onHide} style={style.button_left} disabled={isLoading}>
                 Cancel
               </Button>
             </div>
