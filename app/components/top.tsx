@@ -10,6 +10,7 @@ import AddModal from "../modals/addModal";
 import DeleteModal from "../modals/deleteModal";
 import EditModal from "../modals/editModal";
 import WikipediaModal from "../modals/wikipediaModal";
+import { commonStyle } from "../constants/commonStyle";
 import { faPenToSquareStyle, faTrashCanStyle, faUserPlusStyle } from "../constants/iconStyle";
 
 const db = firebase.firestore();
@@ -18,15 +19,12 @@ export default function Top() {
   const h3 = {
     color: "#669",
     fontSize: "26pt",
+    marginBottom: "0px",
   } as const;
 
   const div_title = {
     height: "40px",
     marginBottom: "8px",
-  } as const;
-
-  const div_mb16 = {
-    marginBottom: "16px",
   } as const;
 
   const button_left = {
@@ -36,8 +34,8 @@ export default function Top() {
 
   const table = {
     display: "block",
-    height: "calc(100vh - 235px)",
-    margin: "8px auto 16px",
+    height: "calc(100vh - 215px)",
+    marginBottom: "0px",
     overflowY: "auto",
     textAlign: "center",
     whiteSpace: "nowrap",
@@ -161,7 +159,7 @@ export default function Top() {
         </div>
         <div>
           <div className="text-left">
-            <div className="form-group d-flex align-items-center justify-content-between" style={div_mb16}>
+            <div className="form-group d-flex align-items-center justify-content-between" style={commonStyle.mb_16}>
               <select className="form-select bg-light" onChange={changeFind}>
                 {selectData}
               </select>

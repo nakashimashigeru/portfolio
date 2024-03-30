@@ -6,7 +6,8 @@ import { Button, Modal } from "react-bootstrap";
 import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
 import "../libs/firebase/config";
-import { style } from "../constants/modalStyle";
+import { commonStyle } from "../constants/commonStyle";
+import { modalStyle } from "../constants/modalStyle";
 import { Profile } from "../types/profile";
 
 const db = firebase.firestore();
@@ -70,9 +71,9 @@ export default function DeleteModal(props: any) {
         scrollable
         size="lg"
       >
-        <Modal.Header closeButton style={style.header}>
+        <Modal.Header closeButton style={modalStyle.header}>
           <Modal.Title id="contained-modal-title-vcenter">
-            <h3 className="text-danger" style={style.h3}>
+            <h3 className="text-danger" style={commonStyle.mb_0}>
               {title}
             </h3>
           </Modal.Title>
@@ -84,16 +85,16 @@ export default function DeleteModal(props: any) {
                 <p>
                   人名: <span className={limelight.className}>{data ? data.name : "..."}</span>
                 </p>
-                <p style={style.p_mb0}>
+                <p style={commonStyle.mb_0}>
                   年齢: <span className={limelight.className}>{data ? data.age : "..."}</span>
                 </p>
               </pre>
             </div>
-            <div className="d-flex justify-content-center" style={style.div_mt16}>
-              <button className="btn btn-danger" onClick={doDelete} style={style.button_right} disabled={isLoading}>
+            <div className="d-flex justify-content-center" style={commonStyle.mt_16}>
+              <button className="btn btn-danger" onClick={doDelete} style={modalStyle.button_right} disabled={isLoading}>
                 Delete
               </button>
-              <Button className="btn btn-light btn-outline-danger" onClick={props.onHide} style={style.button_left} disabled={isLoading}>
+              <Button className="btn btn-light btn-outline-danger" onClick={props.onHide} style={modalStyle.button_left} disabled={isLoading}>
                 Cancel
               </Button>
             </div>

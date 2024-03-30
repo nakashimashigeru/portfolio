@@ -1,18 +1,6 @@
-export const style = {
-  h3: {
-    margin: "0px",
-  },
+export const modalStyle = {
   header: {
     padding: "8px 16px",
-  },
-  div_mt16: {
-    marginTop: "16px",
-  },
-  div_mb16: {
-    marginBottom: "16px",
-  },
-  p_mb0: {
-    marginBottom: "0px",
   },
   label: {
     color: "#f8f9fa",
