@@ -2,6 +2,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faReact } from "@fortawesome/free-brands-svg-icons";
 import { HeaderProps } from "../types/props";
+import { faReactStyle } from "../constants/iconStyle";
 
 export default function Header(props: HeaderProps) {
   const h1 = {
@@ -11,8 +12,6 @@ export default function Header(props: HeaderProps) {
     padding: "8px",
     textAlign: "left",
   } as const;
-
-  const iconStyle: React.CSSProperties = { fontSize: 18, marginRight: 8 };
 
   const doAction = ((e: React.MouseEvent<HTMLHeadingElement, MouseEvent>) => {
     location.reload();
@@ -26,7 +25,7 @@ export default function Header(props: HeaderProps) {
         </h1>
         :
         <h1 className="bg-dark text-light display-4" onClick={doAction} style={h1}>
-          <FontAwesomeIcon style={iconStyle} icon={faReact} />
+          <FontAwesomeIcon style={faReactStyle} icon={faReact} />
           {props.title}
         </h1>
       }

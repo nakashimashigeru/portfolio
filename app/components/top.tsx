@@ -10,6 +10,7 @@ import AddModal from "../modals/addModal";
 import DeleteModal from "../modals/deleteModal";
 import EditModal from "../modals/editModal";
 import WikipediaModal from "../modals/wikipediaModal";
+import { faPenToSquareStyle, faTrashCanStyle, faUserPlusStyle } from "../constants/iconStyle";
 
 const db = firebase.firestore();
 
@@ -59,9 +60,6 @@ export default function Top() {
   const title = "Top";
   const initialData: any[] = [];
   const ignore = useRef(false);
-  const faPenToSquareStyle: React.CSSProperties = { color: "#198754", cursor: "pointer", fontSize: 22, width: 65 };
-  const faTrashCanStyle: React.CSSProperties = { color: "#dc3545", cursor: "pointer", fontSize: 22, width: 65 };
-  const faUserPlusStyle: React.CSSProperties = { color: "#212529", cursor: "pointer", fontSize: 24 };
   const [hasDocument, setHasDocument] = useState(false);
   const [tableData, setTableData] = useState(initialData);
   const [selectData, setSelectData] = useState(initialData);

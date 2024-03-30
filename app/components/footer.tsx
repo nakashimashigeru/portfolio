@@ -3,6 +3,7 @@ import { useRef, useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCopyright } from "@fortawesome/free-solid-svg-icons";
 import { FooterProps } from "../types/props";
+import { faCopyrightStyle } from "../constants/iconStyle";
 
 export default function Footer(props: FooterProps) {
   const div = {
@@ -12,7 +13,6 @@ export default function Footer(props: FooterProps) {
     width: "100%",
   } as const;
 
-  const iconStyle: React.CSSProperties = { fontSize: 18, marginRight: 8 };
   const ignore = useRef(false);
   const [footer, setFooter] = useState("copyright wait...");
 
@@ -43,7 +43,7 @@ export default function Footer(props: FooterProps) {
         </div>
         :
         <div className="d-flex align-items-center justify-content-center">
-          <FontAwesomeIcon style={iconStyle} icon={faCopyright} />
+          <FontAwesomeIcon style={faCopyrightStyle} icon={faCopyright} />
           {footer}
         </div>
       }
