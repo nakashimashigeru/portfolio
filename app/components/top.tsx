@@ -101,6 +101,12 @@ export default function Top() {
     setCurrentSelected(e.target.value);
   });
 
+  const handleAdd = () => {
+    setAddModalShow(false);
+    initialize();
+    setCurrentSelected("");
+  };
+
   const handleDelete = () => {
     setDeleteModalShow(false);
     initialize();
@@ -157,7 +163,7 @@ export default function Top() {
       {hasDocument && isLoading &&
         <CircleSpinnerOverlay overlayColor="rgba(0, 0, 0, 0.2)" />
       }
-      <AddModal show={addModalShow} onHide={() => setAddModalShow(false)} />
+      <AddModal show={addModalShow} onHide={() => setAddModalShow(false)} handleAdd={handleAdd} />
       {documentID !== "" &&
         <DeleteModal id={documentID} show={deleteModalShow} onHide={() => setDeleteModalShow(false)} handleDelete={handleDelete} />
       }

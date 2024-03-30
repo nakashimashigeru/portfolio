@@ -12,6 +12,7 @@ const db = firebase.firestore();
 
 export default function AddModal(props: any) {
   const title = "Add";
+  const {handleAdd, ...others} = props;
   const {
     register,
     handleSubmit,
@@ -26,7 +27,7 @@ export default function AddModal(props: any) {
 
     const result = await db.collection("data").add(ob)
       .then(ref => {
-        location.reload();
+        handleAdd();
       })
       .catch(error => {
         alert(error);
@@ -38,7 +39,7 @@ export default function AddModal(props: any) {
   return (
     <div>
       <Modal
-        {...props}
+        {...others}
         aria-labelledby="contained-modal-title-vcenter"
         backdrop="static"
         centered
