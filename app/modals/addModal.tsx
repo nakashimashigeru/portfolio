@@ -1,14 +1,12 @@
 "use client";
 import { Button, Modal } from "react-bootstrap";
 import { useForm } from "react-hook-form";
-import "firebase/compat/firestore";
-import firebase from "firebase/compat/app";
-import "../libs/firebase/config";
+import { db } from "../libs/firebase/config";
 import { commonStyle } from "../constants/commonStyle";
 import { modalStyle } from "../constants/modalStyle";
 import { Profile } from "../types/profile";
 
-const db = firebase.firestore();
+type Response = "success" | "failure";
 
 export default function AddModal(props: any) {
   const title = "Add";
@@ -20,20 +18,16 @@ export default function AddModal(props: any) {
   } = useForm({defaultValues: {name: "", age: ""}});
 
   const doSubmit = (async (_ob: Profile) => {
-    const ob = {
-      name: _ob.name,
-      age: _ob.age,
-    };
-
-    const result = await db.collection("data").add(ob)
-      .then(ref => {
-        handleAdd();
+    const ob = { name: _ob.name, age: _ob.age };
+    let res: Response = "success";
+    await db.collection("data").add(ob)
+      .then(() => {
+        handleAdd(res, _ob.name);
       })
-      .catch(error => {
-        alert(error);
+      .catch(() => {
+        res = "failure";
+        handleAdd(res, _ob.name);
       });
-
-    return result;
   });
 
   return (

@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare, faTrashCan, faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
-import "../libs/firebase/config";
+import { db } from "../libs/firebase/config";
 import AddModal from "../modals/addModal";
 import DeleteModal from "../modals/deleteModal";
 import EditModal from "../modals/editModal";
@@ -14,7 +14,7 @@ import WikipediaModal from "../modals/wikipediaModal";
 import { commonStyle } from "../constants/commonStyle";
 import { faPenToSquareStyle, faTrashCanStyle, faUserPlusStyle } from "../constants/iconStyle";
 
-const db = firebase.firestore();
+type Response = "success" | "failure";
 
 export default function Top() {
   const h3 = {
@@ -71,7 +71,6 @@ export default function Top() {
   const [deleteModalShow, setDeleteModalShow] = useState(false);
   const [editModalShow, setEditModalShow] = useState(false);
   const [wikipediaModalShow, setWikipediaModalShow] = useState(false);
-  type Response = "success" | "failure";
 
   useEffect(() => {
     if (!ignore.current) {
@@ -103,39 +102,18 @@ export default function Top() {
     setCurrentSelected(e.target.value);
   });
 
-  const handleAdd = () => {
+  const handleAdd = (res: Response, name: string) => {
     setAddModalShow(false);
     initialize();
     setCurrentSelected("");
+    generateToast(res, `${name}を追加しました`, `${name}の追加に失敗しました`);
   };
 
-  const handleDelete = (res: Response) => {
+  const handleDelete = (res: Response, name: string) => {
     setDeleteModalShow(false);
     initialize();
     setCurrentSelected("");
-    if (res === "success") {
-      toast.success("Successfully Deleted",
-        {
-          duration: 4000,
-          style: {
-            background: "rgb(33,37,41,0.8)",
-            color: "#f8f9fa",
-            padding: "16px",
-          },
-        }
-      );
-    } else {
-      toast.error("Could not Delete",
-        {
-          duration: 4000,
-          style: {
-            background: "rgb(33,37,41,0.8)",
-            color: "#f8f9fa",
-            padding: "16px",
-          },
-        }
-      );
-    }
+    generateToast(res, `${name}を削除しました`, `${name}の削除に失敗しました`);
   };
 
   const handleEdit = () => {
@@ -188,6 +166,30 @@ export default function Top() {
       </tr>
     );
   });
+
+  const generateToast = (res: Response, successMessage: string, failureMessage: string) => {
+    if (res === "success") {
+      toast.success(successMessage,
+        {
+          duration: 4000,
+          style: {
+            background: "rgb(33,37,41,0.8)",
+            color: "#f8f9fa",
+          },
+        }
+      );
+    } else {
+      toast.error(failureMessage,
+        {
+          duration: 4000,
+          style: {
+            background: "rgb(33,37,41,0.8)",
+            color: "#f8f9fa",
+          },
+        }
+      );
+    }
+  };
 
   return (
     <div>

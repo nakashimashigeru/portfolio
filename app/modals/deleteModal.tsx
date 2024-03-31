@@ -3,14 +3,13 @@ import { Limelight } from "next/font/google";
 import { useState, useEffect } from "react";
 import { CircleSpinnerOverlay } from "react-spinner-overlay";
 import { Button, Modal } from "react-bootstrap";
-import firebase from "firebase/compat/app";
-import "firebase/compat/firestore";
-import "../libs/firebase/config";
+import { db } from "../libs/firebase/config";
 import { commonStyle } from "../constants/commonStyle";
 import { modalStyle } from "../constants/modalStyle";
 import { Profile } from "../types/profile";
 
-const db = firebase.firestore();
+type Response = "success" | "failure";
+
 const limelight = Limelight({ weight: "400", subsets: ["latin"] });
 
 export default function DeleteModal(props: any) {
@@ -19,7 +18,6 @@ export default function DeleteModal(props: any) {
   const [hasDocument, setHasDocument] = useState(false);
   const [data, setData] = useState({} as Profile);
   const [isLoading, setIsLoading] = useState(true);
-  type Response = "success" | "failure";
 
   useEffect(() => {
     if (props.show) {
@@ -51,11 +49,11 @@ export default function DeleteModal(props: any) {
     let res: Response = "success";
     await db.collection("data").doc(props.id).delete()
       .then(() => {
-        handleDelete(res);
+        handleDelete(res, data.name);
       })
       .catch(() => {
         res = "failure";
-        handleDelete(res);
+        handleDelete(res, data.name);
       });
   });
 
