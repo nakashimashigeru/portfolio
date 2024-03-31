@@ -116,10 +116,11 @@ export default function Top() {
     generateToast(res, `${name}を削除しました`, `${name}の削除に失敗しました`);
   };
 
-  const handleEdit = () => {
+  const handleEdit = (res: Response, name: string) => {
     setEditModalShow(false);
     initialize();
     setCurrentSelected("");
+    generateToast(res, `${name}を編集しました`, `${name}の編集に失敗しました`);
   };
 
   const initialize = () => {

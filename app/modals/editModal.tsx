@@ -3,14 +3,12 @@ import { useState, useEffect } from "react";
 import { CircleSpinnerOverlay } from "react-spinner-overlay";
 import { Button, Modal } from "react-bootstrap";
 import { useForm } from "react-hook-form";
-import "firebase/compat/firestore";
-import firebase from "firebase/compat/app";
-import "../libs/firebase/config";
+import { db } from "../libs/firebase/config";
 import { commonStyle } from "../constants/commonStyle";
 import { modalStyle } from "../constants/modalStyle";
 import { Profile } from "../types/profile";
 
-const db = firebase.firestore();
+type Response = "success" | "failure";
 
 export default function EditModal(props: any) {
   const title = "Edit";
@@ -54,20 +52,15 @@ export default function EditModal(props: any) {
   };
 
   const doSubmit = (async () => {
-    const ob = {
-      name: name,
-      age: age,
-    };
-
-    const result = await db.collection("data").doc(props.id).update(ob)
-      .then(ref => {
-        handleEdit();
+    const ob = { name: name, age: age };
+    let res: Response = "success";
+    await db.collection("data").doc(props.id).update(ob)
+      .then(() => {
+        handleEdit(res, name);
       })
-      .catch(error => {
-        alert(error);
+      .catch(() => {
+        handleEdit(res, name);
       });
-
-    return result;
   });
 
   return (
