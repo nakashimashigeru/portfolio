@@ -6,6 +6,7 @@ import { signInWithRedirect } from 'firebase/auth';
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
 import { auth, provider } from "./libs/firebase/config";
+import { commonStyle } from "./constants/commonStyle";
 import Footer from "./components/footer";
 import Header from "./components/header";
 import LocalImage from "./components/image";
@@ -30,10 +31,6 @@ export default function Home() {
   const div_contents = {
     padding: "16px 0px",
     textAlign: "center",
-  } as const;
-
-  const div_mt16 = {
-    marginTop: "16px",
   } as const;
 
   const ignore = useRef(false);
@@ -74,7 +71,7 @@ export default function Home() {
     <CookiesProvider>
       <div>
         {hasDocument && isLoading &&
-          <CircleSpinnerOverlay overlayColor="rgba(0, 0, 0, 0.2)" />
+          <CircleSpinnerOverlay overlayColor="rgba(0,0,0,0.2)" />
         }
         <Header title={headerTitle} isLoading={isLoading} />
         {auth.currentUser !== null ?
@@ -93,7 +90,7 @@ export default function Home() {
                 :
                 <div>
                   <LocalImage url="login.jpg" alt="藤吉 夏鈴" width={280} height={280} />
-                  <div style={div_mt16}>
+                  <div style={commonStyle.mt_16}>
                     <button className="btn btn-danger" onClick={doLogin} disabled={auth.currentUser !== null ? true : false}>
                       Googleアカウントでログイン
                     </button>

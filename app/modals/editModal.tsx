@@ -59,6 +59,7 @@ export default function EditModal(props: any) {
         handleEdit(res, name);
       })
       .catch(() => {
+        res = "failure";
         handleEdit(res, name);
       });
   });
@@ -66,7 +67,7 @@ export default function EditModal(props: any) {
   return (
     <div>
       {hasDocument && isLoading &&
-        <CircleSpinnerOverlay overlayColor="rgba(0, 0, 0, 0.2)" />
+        <CircleSpinnerOverlay overlayColor="rgba(0,0,0,0.2)" />
       }
       <Modal
         {...others}

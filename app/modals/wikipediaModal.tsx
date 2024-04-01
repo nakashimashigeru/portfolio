@@ -53,7 +53,7 @@ export default function WikipediaModal(props: any) {
   return (
     <div>
       {hasDocument && isLoading &&
-        <CircleSpinnerOverlay overlayColor="rgba(0, 0, 0, 0.2)" />
+        <CircleSpinnerOverlay overlayColor="rgba(0,0,0,0.2)" />
       }
       <Modal
         {...props}
