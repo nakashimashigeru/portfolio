@@ -7,32 +7,13 @@ import "firebase/compat/auth";
 import "firebase/compat/firestore";
 import { auth, provider } from "./libs/firebase/config";
 import { commonStyle } from "./constants/commonStyle";
+import { pageStyle } from "./constants/pageStyle";
 import Footer from "./components/footer";
 import Header from "./components/header";
 import LocalImage from "./components/image";
 import Top from "./components/top";
 
 export default function Home() {
-  const h3 = {
-    color: "#669",
-    fontSize: "26pt",
-  } as const;
-
-  const h5 = {
-    fontSize: "18pt",
-  } as const;
-
-  const div_title = {
-    height: "40px",
-    marginBottom: "8px",
-    textAlign: "center",
-  } as const;
-
-  const div_contents = {
-    padding: "16px 0px",
-    textAlign: "center",
-  } as const;
-
   const ignore = useRef(false);
   const [hasDocument, setHasDocument] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -50,7 +31,7 @@ export default function Home() {
           setIsLoading(false);
           setHeaderTitle("RSTC");
           setTitle("Login");
-          setMessage("Welcome!");
+          setMessage("Welcome");
         } catch (error) {
           alert(error);
         }
@@ -78,11 +59,11 @@ export default function Home() {
           <Top />
           :
           <div className="container">
-            <div style={div_title}>
-              <h3 style={h3}>{title}</h3>
+            <div style={pageStyle.div_title}>
+              <h3 className="mb-0" style={pageStyle.h3}>{title}</h3>
             </div>
-            <div className="bg-dark" style={div_contents}>
-              <h5 className="mb-3 text-light" style={h5}>{message}</h5>
+            <div className="bg-dark" style={pageStyle.div_contents}>
+              <h5 className="mb-2 text-light" style={pageStyle.h5}>{message}</h5>
               {isLoading ?
                 <div>
                   <LocalImage url="loading.jpg" alt="小林 由依" width={280} height={280} />

@@ -1,4 +1,12 @@
 export const modalStyle = {
+  button_left: {
+    marginLeft: "8px",
+    width: "160px",
+  },
+  button_right: {
+    marginRight: "8px",
+    width: "160px",
+  },
   header: {
     padding: "8px 16px",
   },
@@ -7,13 +15,5 @@ export const modalStyle = {
     display: "block",
     textAlign: "left",
     width: "20%",
-  },
-  button_left: {
-    marginLeft: "8px",
-    width: "160px",
-  },
-  button_right: {
-    marginRight: "8px",
-    width: "160px",
   },
 } as const;

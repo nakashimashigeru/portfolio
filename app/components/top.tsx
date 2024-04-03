@@ -12,50 +12,12 @@ import DeleteModal from "../modals/deleteModal";
 import EditModal from "../modals/editModal";
 import WikipediaModal from "../modals/wikipediaModal";
 import { commonStyle } from "../constants/commonStyle";
+import { topStyle } from "../constants/topStyle";
 import { faPenToSquareStyle, faTrashCanStyle, faUserPlusStyle } from "../constants/iconStyle";
 
 type Response = "success" | "failure";
 
 export default function Top() {
-  const h3 = {
-    color: "#669",
-    fontSize: "26pt",
-    marginBottom: "0px",
-  } as const;
-
-  const div_title = {
-    height: "40px",
-    marginBottom: "8px",
-  } as const;
-
-  const button_left = {
-    marginLeft: "8px",
-    width: "160px",
-  } as const;
-
-  const table = {
-    display: "block",
-    height: "calc(100vh - 215px)",
-    marginBottom: "0px",
-    overflowY: "auto",
-    textAlign: "center",
-    whiteSpace: "nowrap",
-  } as const;
-
-  const thead = {
-    position: "sticky",
-    top: 0,
-    zIndex: 999,
-  } as const;
-
-  const th = {
-    width: "100%",
-  } as const;
-
-  const td = {
-    padding: 0,
-  } as const;
-
   const title = "Top";
   const initialData: any[] = [];
   const ignore = useRef(false);
@@ -154,7 +116,7 @@ export default function Top() {
   const generateTableData = ((documentID: string, data: firebase.firestore.DocumentData) => {
     return (
       <tr key={documentID}>
-        <td style={td}>
+        <td style={commonStyle.p_0}>
           <button type="button" className="btn btn-link" onClick={() => {setName(data.name); setWikipediaModalShow(true);}}>
             {data.name}
           </button>
@@ -207,8 +169,8 @@ export default function Top() {
       <WikipediaModal name={name} show={wikipediaModalShow} onHide={() => setWikipediaModalShow(false)} />
       <Toaster position="bottom-center" reverseOrder={false} />
       <div className="container">
-        <div className="d-flex align-items-center justify-content-between" style={div_title}>
-          <h3 style={h3}>{title}</h3>
+        <div className="d-flex align-items-center justify-content-between" style={topStyle.div_title}>
+          <h3 className="mb-0" style={topStyle.h3}>{title}</h3>
           <FontAwesomeIcon style={faUserPlusStyle} icon={faUserPlus} onClick={() => setAddModalShow(true)} />
         </div>
         <div>
@@ -217,16 +179,16 @@ export default function Top() {
               <select className="form-select bg-light" onChange={changeFind} value={currentSelected}>
                 {selectData}
               </select>
-              <button className="btn btn-primary" onClick={doAction} style={button_left}>
+              <button className="btn btn-primary" onClick={doAction} style={topStyle.button_left}>
                 Find
               </button>
             </div>
           </div>
           <div className="table-responsive-sm table-responsive-md">
-            <table className="table table-hover table-striped" style={table}>
-              <thead style={thead}>
+            <table className="table table-hover table-striped" style={topStyle.table}>
+              <thead style={topStyle.thead}>
                 <tr>
-                  <th className="bg-dark text-light" style={th}>人名</th>
+                  <th className="bg-dark text-light" style={topStyle.th}>人名</th>
                   <th className="bg-dark text-light">年齢</th>
                   <th className="bg-dark text-light"></th>
                 </tr>

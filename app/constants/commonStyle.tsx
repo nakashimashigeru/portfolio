@@ -8,4 +8,7 @@ export const commonStyle = {
   mt_16: {
     marginTop: "16px",
   },
+  p_0: {
+    padding: "0px",
+  },
 } as const;
