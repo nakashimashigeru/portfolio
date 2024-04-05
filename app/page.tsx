@@ -66,11 +66,11 @@ export default function Home() {
               <h5 className="mb-2 text-light" style={pageStyle.h5}>{message}</h5>
               {isLoading ?
                 <div>
-                  <LocalImage url="loading.jpg" alt="小林 由依" width={280} height={280} />
+                  <LocalImage url="onepiece20_santaisyou1_kizaru_borsalino.png" alt="海軍三大将のイラスト（黄猿）" width={280} height={354} />
                 </div>
                 :
                 <div>
-                  <LocalImage url="login.jpg" alt="藤吉 夏鈴" width={280} height={280} />
+                  <LocalImage url="kids_chuunibyou_girl.png" alt="中二病のイラスト（女性）" width={280} height={300} />
                   <div style={commonStyle.mt_16}>
                     <button className="btn btn-danger" onClick={doLogin} disabled={auth.currentUser !== null ? true : false}>
                       Googleアカウントでログイン
